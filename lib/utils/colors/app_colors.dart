@@ -24,18 +24,20 @@ class AppColors {
     0xFFB6DCF3,
   );
 
-  static const LinearGradient authContainerGradient = LinearGradient(colors: [
-    Color(
-      0xFF69E4F4,
-    ),
-    Color(
-      0xFFB6DCF3,
-    ),
-    Color(
-      0xFFB6DCF3,
-    ),
-    Color(
-      0xFF69E4F4,
-    ),
-  ]);
+  static const LinearGradient authContainerGradient = LinearGradient(
+    colors: [
+      Color(
+        0xFF69E4F4,
+      ),
+      Color(
+        0xFFB6DCF3,
+      ),
+      Color(
+        0xFFB6DCF3,
+      ),
+      Color(
+        0xFF69E4F4,
+      ),
+    ],
+  );
 }
