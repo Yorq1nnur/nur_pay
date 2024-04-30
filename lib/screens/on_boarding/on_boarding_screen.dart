@@ -6,7 +6,9 @@ import 'package:nur_pay/screens/on_boarding/pages/boarding_page_two.dart';
 import 'package:nur_pay/screens/routes.dart';
 
 class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key,});
+  const OnBoardingScreen({
+    super.key,
+  });
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -17,7 +19,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int activeIndex = 0;
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -25,7 +29,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Expanded(
             child: PageView(
               controller: controller,
-              onPageChanged: (index,) {},
+              onPageChanged: (
+                index,
+              ) {},
               physics: const NeverScrollableScrollPhysics(),
               children: const [
                 BoardingPageOne(),
@@ -43,19 +49,25 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ).then(
                   (value) {
                     Navigator.pushReplacementNamed(
-                        context, RouteNames.authRoute,);
+                      context,
+                      RouteNames.authRoute,
+                    );
                   },
                 );
               } else {
                 activeIndex += 1;
                 controller.animateToPage(
                   activeIndex,
-                  duration: const Duration(milliseconds: 500,),
+                  duration: const Duration(
+                    milliseconds: 500,
+                  ),
                   curve: Curves.linear,
                 );
               }
             },
-            child: const Text("Next",),
+            child: const Text(
+              "Next",
+            ),
           )
         ],
       ),

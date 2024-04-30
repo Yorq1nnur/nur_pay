@@ -18,11 +18,15 @@ class NoInternetScreen extends StatefulWidget {
 
 class _NoInternetScreenState extends State<NoInternetScreen> {
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return PopScope(
       canPop: false,
       onPopInvoked: (value) {
-        debugPrint("ON POP INVOKED:$value",);
+        debugPrint(
+          "ON POP INVOKED:$value",
+        );
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -32,15 +36,22 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
               child: Center(
                 child: Text(
                   "NO INTERNET",
-                  style: AppTextStyle.interSemiBold.copyWith(fontSize: 32,),
+                  style: AppTextStyle.interSemiBold.copyWith(
+                    fontSize: 32,
+                  ),
                 ),
               ),
             ),
             BlocListener<ConnectivityBloc, ConnectivityState>(
-              listener: (context, state,) {
+              listener: (
+                context,
+                state,
+              ) {
                 if (state.hasInternet) {
                   widget.onInternetComeBack.call();
-                  Navigator.pop(context,);
+                  Navigator.pop(
+                    context,
+                  );
                 }
               },
               child: const SizedBox(),

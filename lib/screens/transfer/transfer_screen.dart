@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TransferScreen extends StatefulWidget {
-  const TransferScreen({super.key,});
+  const TransferScreen({
+    super.key,
+  });
 
   @override
   State<TransferScreen> createState() => _TransferScreenState();
@@ -9,7 +11,9 @@ class TransferScreen extends StatefulWidget {
 
 class _TransferScreenState extends State<TransferScreen> {
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return const Scaffold();
   }
 }

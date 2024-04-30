@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CardScreen extends StatefulWidget {
-  const CardScreen({super.key,});
+  const CardScreen({
+    super.key,
+  });
 
   @override
   State<CardScreen> createState() => _CardScreenState();
@@ -9,7 +11,9 @@ class CardScreen extends StatefulWidget {
 
 class _CardScreenState extends State<CardScreen> {
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return const Scaffold();
   }
 }
