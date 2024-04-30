@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
+import 'package:nur_pay/utils/styles/app_text_style.dart';
 
 class BoardingPageSample extends StatelessWidget {
   const BoardingPageSample({
@@ -16,12 +18,22 @@ class BoardingPageSample extends StatelessWidget {
     BuildContext context,
   ) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
           imagePath,
         ),
         20.getH(),
-        Text(title)
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.w,
+          ),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: AppTextStyle.interSemiBold.copyWith(fontSize: 14),
+          ),
+        ),
       ],
     );
   }
