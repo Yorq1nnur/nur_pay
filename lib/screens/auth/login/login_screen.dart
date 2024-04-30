@@ -19,6 +19,17 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isVisible = true;
+  final TextEditingController _userNameController =
+      TextEditingController(text: "Username or Email");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "Password");
+
+  @override
+  void dispose() {
+    _userNameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(
@@ -59,15 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
+                        style: AppTextStyle.interBold.copyWith(
+                          fontSize: 15.w,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.c676767,
+                        ),
+                        onTap: () {
+                          _userNameController.text = '';
+                        },
+                        controller: _userNameController,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          labelText: "Username or Email",
-                          labelStyle: AppTextStyle.interBold.copyWith(
-                            fontSize: 15.w,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.c676767,
-                          ),
                           prefixIcon: Icon(
                             Icons.person,
                             size: 30.w,
@@ -85,13 +99,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+
+                        onTap: () {
+                          _passwordController.text = '';
+                        },
+                        controller: _passwordController,
+                        style: AppTextStyle.interBold.copyWith(
+                          fontSize: 15.w,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.c676767,
+                        ),
                         decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: AppTextStyle.interBold.copyWith(
-                            fontSize: 15.w,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.c676767,
-                          ),
                           suffixIcon: IconButton(
                             icon: SvgPicture.asset(
                               isVisible
