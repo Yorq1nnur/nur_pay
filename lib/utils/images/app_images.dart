@@ -10,6 +10,9 @@ class AppImages {
   static const String eyeUnVisible = "assets/icons/eye_un_visible.svg";
 
   //.jpg
+  static const String firstOnboard = "assets/images/first_onboard.png";
+  static const String secondOnboard = "assets/images/second_onboard.png";
+  static const String thirdOnboard = "assets/images/third_onboard.png";
 
   //.gif
 }

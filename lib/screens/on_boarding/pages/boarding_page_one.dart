@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:nur_pay/utils/images/app_images.dart';
+import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
 
-class BoardingPageOne extends StatelessWidget {
-  const BoardingPageOne({
+class BoardingPageSample extends StatelessWidget {
+  const BoardingPageSample({
     super.key,
+    required this.imagePath,
+    required this.title,
   });
+
+  final String imagePath;
+  final String title;
 
   @override
   Widget build(
@@ -13,8 +18,10 @@ class BoardingPageOne extends StatelessWidget {
     return Column(
       children: [
         Image.asset(
-          AppImages.boy,
+          imagePath,
         ),
+        20.getH(),
+        Text(title)
       ],
     );
   }
