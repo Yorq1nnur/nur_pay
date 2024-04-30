@@ -3,7 +3,7 @@ class AppImages {
   static const String boy = "assets/images/boy.png";
 
   //.svg
-  static const String delete = "assets/icons/delete.svg";
+  static const String profileTextField = "assets/icons/profile.svg";
 
   //.jpg
 

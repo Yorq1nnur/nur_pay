@@ -14,6 +14,9 @@ class AppColors {
   static const Color c_2A3256 = Color(
     0xFF2A3256,
   );
+  static const Color cA8A8A9 = Color(
+    0xFFA8A8A9,
+  );
   static const Color cC4C4C4 = Color(
     0xFFC4C4C4,
   );
@@ -25,6 +28,8 @@ class AppColors {
   );
 
   static const LinearGradient authContainerGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
     colors: [
       Color(
         0xFF69E4F4,

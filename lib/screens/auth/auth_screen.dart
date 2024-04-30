@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_utils/my_utils.dart';
+import 'package:nur_pay/utils/colors/app_colors.dart';
+import 'package:nur_pay/utils/images/app_images.dart';
+import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
+import 'package:nur_pay/utils/styles/app_text_style.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({
@@ -15,9 +21,59 @@ class _AuthScreenState extends State<AuthScreen> {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Auth Screen",
+      body: Container(
+        height: MediaQuery.sizeOf(
+          context,
+        ).height,
+        width: MediaQuery.sizeOf(
+          context,
+        ).width,
+        decoration: const BoxDecoration(
+          gradient: AppColors.authContainerGradient,
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 15.w,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              100.getH(),
+              Text(
+                "Welcome\nBack!",
+                style: AppTextStyle.interBold.copyWith(
+                  fontSize: 40.w,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              80.getH(),
+              Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: SvgPicture.asset(
+                          AppImages.profileTextField,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: const BorderSide(
+                            color: AppColors.cA8A8A9,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
