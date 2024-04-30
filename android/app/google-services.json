@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "247041905668",
+    "project_id": "nur-pay-680cd",
+    "storage_bucket": "nur-pay-680cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247041905668:android:f2e64ca4b507118532d151",
+        "android_client_info": {
+          "package_name": "uz.nur.pay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5WKzcB8bkbvs5BG4saBmxcPO_t5AIeNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

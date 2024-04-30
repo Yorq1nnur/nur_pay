@@ -1,29 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:nur_pay/data/local/storage_repository.dart';
+import 'package:nur_pay/services/firebase_options.dart';
+import 'app/app.dart';
 
-void main() {
-  runApp(
-    const MainApp(),
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
-}
 
-class MainApp extends StatelessWidget {
-  const MainApp({
-    super.key,
-  });
+  await StorageRepository.init();
 
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Hello World!',
-          ),
-        ),
-      ),
-    );
-  }
+  runApp(App());
 }
