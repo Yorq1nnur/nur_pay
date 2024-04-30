@@ -107,6 +107,134 @@ class _AuthScreenState extends State<AuthScreen> {
                   ],
                 ),
               ),
+              70.getH(),
+              Center(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(
+                    50,
+                  ),
+                  onTap: () {},
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10.h,
+                        horizontal: 70.w,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          50,
+                        ),
+                        color: AppColors.c69E4F4,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(
+                              0.25,
+                            ),
+                            blurRadius: 4,
+                            offset: const Offset(
+                              0,
+                              4,
+                            ),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        "Login",
+                        style: AppTextStyle.interBlack.copyWith(
+                          fontSize: 20.w,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              70.getH(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 1.h,
+                    width: 115.w,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                    ),
+                    child: Text(
+                      "Or login with",
+                      style: AppTextStyle.interBold.copyWith(
+                          fontSize: 14.w,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.c6A707C),
+                    ),
+                  ),
+                  Container(
+                    height: 1.h,
+                    width: 115.w,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              30.getH(),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.w,
+                ),
+                child: Center(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(
+                      50,
+                    ),
+                    onTap: () {},
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10.h,
+                        horizontal: 30.w,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          50,
+                        ),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.blue,
+                            Colors.blueAccent,
+                            Colors.lightBlue,
+                            Colors.lightBlueAccent,
+                          ],
+                        ),
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SvgPicture.asset(
+                              AppImages.google,
+                              height: 30.w,
+                              width: 30.w,
+                            ),
+                            Text(
+                              "Login with Google",
+                              style: AppTextStyle.interBold.copyWith(
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
