@@ -71,7 +71,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           duration: const Duration(
                             milliseconds: 500,
                           ),
-                          curve: Curves.linear,
+                          curve: Curves.decelerate,
                         );
                       }
                     },
