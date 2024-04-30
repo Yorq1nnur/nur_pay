@@ -6,19 +6,31 @@ import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/services/local_notification_service.dart';
 
 class App extends StatelessWidget {
-  App({super.key});
+  App({
+    super.key,
+  });
 
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
-  Widget build(BuildContext context) {
-    LocalNotificationService.localNotificationService.init(navigatorKey);
+  Widget build(
+    BuildContext context,
+  ) {
+    LocalNotificationService.localNotificationService.init(
+      navigatorKey,
+    );
 
     return MultiRepositoryProvider(
-      providers: [RepositoryProvider(create: (_) => AuthRepository())],
+      providers: [
+        RepositoryProvider(
+          create: (_) => AuthRepository(),
+        ),
+      ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => AuthBloc()),
+          BlocProvider(
+            create: (context) => AuthBloc(),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

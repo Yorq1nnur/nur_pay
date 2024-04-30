@@ -8,40 +8,65 @@ import 'package:nur_pay/screens/tab/tab_screen.dart';
 import 'package:nur_pay/screens/transfer/transfer_screen.dart';
 
 class AppRoutes {
-  static Route generateRoute(RouteSettings settings) {
+  static Route generateRoute(
+    RouteSettings settings,
+  ) {
     switch (settings.name) {
       case RouteNames.splashScreen:
-        return navigate(const SplashScreen());
+        return navigate(
+          const SplashScreen(),
+        );
 
       case RouteNames.tabRoute:
-        return navigate(const TabScreen());
+        return navigate(
+          const TabScreen(),
+        );
 
       case RouteNames.noInternetRoute:
-        return navigate(NoInternetScreen(
-            onInternetComeBack: settings.arguments as VoidCallback));
+        return navigate(
+          NoInternetScreen(
+              onInternetComeBack: settings.arguments as VoidCallback),
+        );
 
       case RouteNames.transferRoute:
-        return navigate(const TransferScreen());
+        return navigate(
+          const TransferScreen(),
+        );
       case RouteNames.paymentRoute:
-        return navigate(const PaymentScreen());
+        return navigate(
+          const PaymentScreen(),
+        );
       case RouteNames.authRoute:
-        return navigate(const AuthScreen());
+        return navigate(
+          const AuthScreen(),
+        );
       case RouteNames.onBoardingRoute:
-        return navigate(const OnBoardingScreen());
+        return navigate(
+          const OnBoardingScreen(),
+        );
 
       default:
         return navigate(
           const Scaffold(
             body: Center(
-              child: Text("This kind of rout does not exist!"),
+              child: Text(
+                "This kind of rout does not exist!",
+              ),
             ),
           ),
         );
     }
   }
 
-  static navigate(Widget widget) {
-    return MaterialPageRoute(builder: (context) => widget);
+  static navigate(
+    Widget widget,
+  ) {
+    return MaterialPageRoute(
+      builder: (
+        context,
+      ) =>
+          widget,
+    );
   }
 }
 

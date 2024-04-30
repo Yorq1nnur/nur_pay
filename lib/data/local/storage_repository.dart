@@ -18,12 +18,19 @@ class StorageRepository {
     required int value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING INT:$value");
-      _preference!.setInt(key, value);
+      debugPrint(
+        "SAVING INT:$value",
+      );
+      _preference!.setInt(
+        key,
+        value,
+      );
     }
   }
 
-  static int getInt({required String key}) {
+  static int getInt({
+    required String key,
+  }) {
     if (_preference != null) {
       return _preference!.getInt(key) ?? 0;
     }
@@ -35,12 +42,19 @@ class StorageRepository {
     required String value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING STRING:$value");
-      _preference!.setString(key, value);
+      debugPrint(
+        "SAVING STRING:$value",
+      );
+      _preference!.setString(
+        key,
+        value,
+      );
     }
   }
 
-  static String getString({required String key}) {
+  static String getString({
+    required String key,
+  }) {
     if (_preference != null) {
       return _preference!.getString(key) ?? "";
     }
@@ -52,12 +66,19 @@ class StorageRepository {
     required bool value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING BOOL:$value");
-      _preference!.setBool(key, value);
+      debugPrint(
+        "SAVING BOOL:$value",
+      );
+      _preference!.setBool(
+        key,
+        value,
+      );
     }
   }
 
-  static bool getBool({required String key}) {
+  static bool getBool({
+    required String key,
+  }) {
     if (_preference != null) {
       return _preference!.getBool(key) ?? false;
     }
@@ -69,12 +90,19 @@ class StorageRepository {
     required double value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING DOUBLE:$value");
-      _preference!.setDouble(key, value);
+      debugPrint(
+        "SAVING DOUBLE:$value",
+      );
+      _preference!.setDouble(
+        key,
+        value,
+      );
     }
   }
 
-  static double getDouble({required String key}) {
+  static double getDouble({
+    required String key,
+  }) {
     if (_preference != null) {
       return _preference!.getDouble(key) ?? 0.0;
     }
@@ -86,12 +114,19 @@ class StorageRepository {
     required List<String> values,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING LIST:$values");
-      _preference!.setStringList(key, values);
+      debugPrint(
+        "SAVING LIST:$values",
+      );
+      _preference!.setStringList(
+        key,
+        values,
+      );
     }
   }
 
-  static List<String> getStringList({required String key}) {
+  static List<String> getStringList({
+    required String key,
+  }) {
     if (_preference != null) {
       return _preference!.getStringList(key) ?? [];
     }

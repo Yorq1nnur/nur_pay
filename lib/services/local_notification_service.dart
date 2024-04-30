@@ -8,7 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 Future<void> configureLocalTimeZone() async {
   tz.initializeTimeZones();
   final String timeZoneName = await FlutterTimezone.getLocalTimezone();
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
+  tz.setLocalLocation(tz.getLocation(timeZoneName,),);
 }
 
 class LocalNotificationService {
@@ -24,10 +24,10 @@ class LocalNotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  void init(GlobalKey<NavigatorState> navigatorKey) async {
+  void init(GlobalKey<NavigatorState> navigatorKey,) async {
     // Android
     const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings("app_icon");
+        AndroidInitializationSettings("app_icon",);
 
     //IOS
     final DarwinInitializationSettings initializationSettingsDarwin =
@@ -47,7 +47,7 @@ class LocalNotificationService {
         //   return UsersScreen();
         // }));
       }
-      print(notification.payload);
+      debugPrint(notification.payload,);
     });
 
     await flutterLocalNotificationsPlugin
@@ -61,9 +61,9 @@ class LocalNotificationService {
     tz.initializeTimeZones();
   }
 
-  @pragma('vm:entry-point')
-  void notificationTapBackground(NotificationResponse notificationResponse) {
-    print("TAPPED FROM BACKGROUND");
+  @pragma('vm:entry-point',)
+  void notificationTapBackground(NotificationResponse notificationResponse,) {
+    debugPrint("TAPPED FROM BACKGROUND",);
   }
 
   AndroidNotificationChannel androidNotificationChannel =
@@ -81,7 +81,7 @@ class LocalNotificationService {
     String? body,
     String? payload,
   ) async {
-    print(payload);
+    debugPrint(payload,);
   }
 
   void showNotification({
@@ -101,16 +101,16 @@ class LocalNotificationService {
               playSound: true,
               icon: "app_icon",
               showProgress: true,
-              largeIcon: const DrawableResourceAndroidBitmap('app_icon'),
+              largeIcon: const DrawableResourceAndroidBitmap('app_icon',),
             ),
             iOS: DarwinNotificationDetails(
               subtitle: title,
               presentAlert: true,
               presentSound: true,
               interruptionLevel: InterruptionLevel.active,
-            )),
-        payload: "news_screen");
-    debugPrint("CURRENT NOTIFICATION ID:$id");
+            ),),
+        payload: "news_screen",);
+    debugPrint("CURRENT NOTIFICATION ID:$id",);
   }
 
   void scheduleNotification({
@@ -122,14 +122,14 @@ class LocalNotificationService {
         123,
         'scheduled alarm clock title',
         'scheduled alarm clock body',
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5,),),
         const NotificationDetails(
             android: AndroidNotificationDetails(
                 'alarm_clock_channel', 'Alarm Clock Channel',
-                channelDescription: 'Alarm Clock Notification')),
+                channelDescription: 'Alarm Clock Notification',),),
         androidScheduleMode: AndroidScheduleMode.alarmClock,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
+            UILocalNotificationDateInterpretation.absoluteTime,);
   }
 
   void showPeriodicNotification({
@@ -149,14 +149,14 @@ class LocalNotificationService {
           playSound: true,
           icon: "app_icon",
           showProgress: true,
-          largeIcon: const DrawableResourceAndroidBitmap('app_icon'),
+          largeIcon: const DrawableResourceAndroidBitmap('app_icon',),
         ),
       ),
     );
   }
 
-  cancelNotification(int id) {
-    flutterLocalNotificationsPlugin.cancel(id);
+  cancelNotification(int id,) {
+    flutterLocalNotificationsPlugin.cancel(id,);
   }
 
   cancelAll() {

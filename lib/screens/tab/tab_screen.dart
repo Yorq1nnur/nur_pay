@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TabScreen extends StatefulWidget {
-  const TabScreen({super.key});
+  const TabScreen({super.key,});
 
   @override
   State<TabScreen> createState() => _TabScreenState();
@@ -9,7 +9,7 @@ class TabScreen extends StatefulWidget {
 
 class _TabScreenState extends State<TabScreen> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold();
+  Widget build(BuildContext context,) {
+    return const Scaffold();
   }
 }
