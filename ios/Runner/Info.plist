@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<!-- Copied from GoogleService-Info.plist key CLIENT_ID -->
+    <string>[699471060311-boktfei0alnfbjc140gako8vvncn4opj.apps.googleusercontent.com]</string>
+	<key>UISupportedInterfaceOrientations~ipad</key>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
