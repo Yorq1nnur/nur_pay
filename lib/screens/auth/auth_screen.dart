@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
-import 'package:nur_pay/utils/images/app_images.dart';
 import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
 import 'package:nur_pay/utils/styles/app_text_style.dart';
 
@@ -53,14 +51,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   children: [
                     TextFormField(
                       decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.remove_red_eye,
-                          size: 20.w,
-                        ),
-                        prefixIcon: SvgPicture.asset(
-                          AppImages.profileTextField,
-                          width: 25.w,
-                          height: 25.h,
+                        prefixIcon: Icon(
+                          Icons.person,
+                          size: 30.w,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(
@@ -72,7 +65,29 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    24.getH(),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20.w,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          size: 30.w,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: const BorderSide(
+                            color: AppColors.cA8A8A9,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

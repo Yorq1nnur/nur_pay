@@ -4,6 +4,7 @@ class AppImages {
 
   //.svg
   static const String profileTextField = "assets/icons/profile.svg";
+  static const String lock = "assets/icons/lock.svg";
 
   //.jpg
 
