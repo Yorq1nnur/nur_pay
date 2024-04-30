@@ -14,6 +14,15 @@ class AppColors {
   static const Color c_2A3256 = Color(
     0xFF2A3256,
   );
+  static const Color c676767 = Color(
+    0xFF676767,
+  );
+  static const Color c009FFF = Color(
+    0xFF009FFF,
+  );
+  static const Color c1E232C = Color(
+    0xFF1E232C,
+  );
   static const Color c6A707C = Color(
     0xFF6A707C,
   );
@@ -46,6 +55,17 @@ class AppColors {
       Color(
         0xFF69E4F4,
       ),
+    ],
+  );
+
+  static const LinearGradient loginWithGoogleGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Colors.blue,
+      Colors.blueAccent,
+      Colors.lightBlue,
+      Colors.lightBlueAccent,
     ],
   );
 }

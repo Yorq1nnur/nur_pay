@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (isNewUser) {
         Navigator.pushReplacementNamed(
           context,
-          RouteNames.authRoute,
+          RouteNames.loginRoute,
         );
       } else {
         Navigator.pushReplacementNamed(

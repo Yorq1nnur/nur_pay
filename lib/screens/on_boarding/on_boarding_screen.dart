@@ -3,7 +3,7 @@ import 'package:nur_pay/data/local/storage_repository.dart';
 import 'package:nur_pay/screens/on_boarding/pages/boarding_page_one.dart';
 import 'package:nur_pay/screens/on_boarding/pages/boarding_page_three.dart';
 import 'package:nur_pay/screens/on_boarding/pages/boarding_page_two.dart';
-import 'package:nur_pay/screens/routes.dart';
+// import 'package:nur_pay/screens/routes.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({
@@ -46,14 +46,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 StorageRepository.setBool(
                   key: "is_new_user",
                   value: true,
-                ).then(
-                  (value) {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      RouteNames.authRoute,
-                    );
-                  },
                 );
+                  //   .then(
+                  // (value) {
+                  //   Navigator.pushReplacementNamed(
+                  //     context,
+                  //     RouteNames.loginRoute,
+                  //   );
+                  // },
+                // );
               } else {
                 activeIndex += 1;
                 controller.animateToPage(

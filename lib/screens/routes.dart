@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nur_pay/screens/auth/auth_screen.dart';
+import 'package:nur_pay/screens/auth/login/login_screen.dart';
+import 'package:nur_pay/screens/auth/register/register_screen.dart';
 import 'package:nur_pay/screens/no_internet/no_internet_screen.dart';
 import 'package:nur_pay/screens/on_boarding/on_boarding_screen.dart';
 import 'package:nur_pay/screens/payment/payment_screen.dart';
@@ -36,13 +37,17 @@ class AppRoutes {
         return navigate(
           const PaymentScreen(),
         );
-      case RouteNames.authRoute:
+      case RouteNames.loginRoute:
         return navigate(
-          const AuthScreen(),
+          const LoginScreen(),
         );
       case RouteNames.onBoardingRoute:
         return navigate(
           const OnBoardingScreen(),
+        );
+      case RouteNames.registerRoute:
+        return navigate(
+          const RegisterScreen(),
         );
 
       default:
@@ -73,7 +78,8 @@ class AppRoutes {
 class RouteNames {
   static const String splashScreen = "/";
   static const String tabRoute = "/tab_route";
-  static const String authRoute = "/auth_route";
+  static const String loginRoute = "/login_route";
+  static const String registerRoute = "/register_route";
   static const String noInternetRoute = "/no_internet_route";
   static const String paymentRoute = "/payment_route";
   static const String transferRoute = "/transfer_route";
