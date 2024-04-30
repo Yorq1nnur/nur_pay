@@ -59,12 +59,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: "Username or Email",
                           labelStyle: AppTextStyle.interBold.copyWith(
-                              fontSize: 15.w,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.c676767),
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.c676767,
+                          ),
                           prefixIcon: Icon(
                             Icons.person,
                             size: 30.w,
@@ -85,9 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           labelText: "Password",
                           labelStyle: AppTextStyle.interBold.copyWith(
-                              fontSize: 15.w,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.c676767),
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.c676767,
+                          ),
                           suffixIcon: IconButton(
                             icon: SvgPicture.asset(
                               isVisible
@@ -185,9 +189,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Or login with",
                         style: AppTextStyle.interBold.copyWith(
-                            fontSize: 14.w,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.c6A707C),
+                          fontSize: 14.w,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.c6A707C,
+                        ),
                       ),
                     ),
                     Container(

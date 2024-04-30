@@ -45,6 +45,7 @@ dependencies:
   #for responsive size
   my_utils:
     path: packages/my_utils
+  lottie: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +58,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/lottie/
   fonts:
     - family: Inter
       fonts:

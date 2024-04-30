@@ -15,4 +15,8 @@ class AppImages {
   static const String thirdOnboard = "assets/images/third_onboard.png";
 
   //.gif
+
+  //lottie
+  static const String splash = "assets/lottie/splash.json";
+
 }

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/data/local/storage_repository.dart';
 import 'package:nur_pay/screens/routes.dart';
+import 'package:nur_pay/utils/colors/app_colors.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nur_pay/utils/images/app_images.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -17,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _init() async {
     await Future.delayed(
       const Duration(
-        seconds: 2,
+        seconds: 3,
       ),
     );
     if (!mounted) return;
@@ -61,12 +64,17 @@ class _SplashScreenState extends State<SplashScreen> {
       context,
     ).size.height;
 
-    return const Scaffold(
-      body: Center(
-        child: Icon(
-          Icons.access_time_filled_outlined,
-          color: Colors.green,
-          size: 200,
+    return Scaffold(
+      body: Container(
+        height: height,
+        width: width,
+        decoration: const BoxDecoration(
+          gradient: AppColors.authContainerGradient,
+        ),
+        child: Center(
+          child: Lottie.asset(
+            AppImages.splash,
+          ),
         ),
       ),
     );
