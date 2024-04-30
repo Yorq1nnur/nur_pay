@@ -53,6 +53,10 @@ class _AuthScreenState extends State<AuthScreen> {
                   children: [
                     TextFormField(
                       decoration: InputDecoration(
+                        suffixIcon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20.w,
+                        ),
                         prefixIcon: SvgPicture.asset(
                           AppImages.profileTextField,
                           width: 25.w,
