@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
+import 'package:nur_pay/utils/images/app_images.dart';
 import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
 import 'package:nur_pay/utils/styles/app_text_style.dart';
 
@@ -14,6 +16,8 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  bool isVisible = true;
+
   @override
   Widget build(
     BuildContext context,
@@ -69,9 +73,21 @@ class _AuthScreenState extends State<AuthScreen> {
                     24.getH(),
                     TextFormField(
                       decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.remove_red_eye,
-                          size: 20.w,
+                        suffixIcon: IconButton(
+                          icon: SvgPicture.asset(
+                            isVisible ? AppImages.eye : AppImages.eyeUnVisible,
+                            width: 25.w,
+                            height: 25.h,
+                            fit: BoxFit.fill,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.black,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                          onPressed: () {
+                            isVisible = !isVisible;
+                            setState(() {});
+                          },
                         ),
                         prefixIcon: Icon(
                           Icons.lock,
