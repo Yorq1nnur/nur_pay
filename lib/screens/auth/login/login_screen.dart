@@ -179,15 +179,37 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("SUCCESS")));
+                          SnackBar(
+                            backgroundColor: Colors.blue,
+                            duration: const Duration(
+                              seconds: 3,
+                            ),
+                            content: Text(
+                              "SUCCESS",
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.interSemiBold,
+                            ),
+                          ),
+                        );
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           RouteNames.tabRoute,
                           (route) => false,
                         );
-                      }else{
+                      } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!")));
+                          SnackBar(
+                            backgroundColor: Colors.red,
+                            duration: const Duration(
+                              seconds: 3,
+                            ),
+                            content: Text(
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.interSemiBold,
+                              "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
+                            ),
+                          ),
+                        );
                       }
                     },
                     child: Center(
