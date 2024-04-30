@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
+import 'package:nur_pay/utils/constants/app_constants.dart';
 import 'package:nur_pay/utils/images/app_images.dart';
 import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
 import 'package:nur_pay/utils/styles/app_text_style.dart';
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  var _formKey = GlobalKey<FormState>();
   bool isVisible = true;
   final TextEditingController _userNameController =
       TextEditingController(text: "Username or Email");
@@ -66,10 +68,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 60.getH(),
                 Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "WRONG EMAIL!!!";
+                          } else if (!AppConstants.emailRegExp
+                              .hasMatch(value)) {
+                            return "WRONG EMAIL FORMAT!!!";
+                          } else {
+                            return null;
+                          }
+                        },
                         style: AppTextStyle.interBold.copyWith(
                           fontSize: 15.w,
                           fontWeight: FontWeight.w500,
@@ -99,7 +113,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       24.getH(),
                       TextFormField(
-
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "WRONG PASSWORD!!!";
+                          } else if (!AppConstants.passwordRegExp
+                              .hasMatch(value)) {
+                            return "WRONG PASSWORD FORMATT!!!";
+                          } else {
+                            return null;
+                          }
+                        },
                         onTap: () {
                           _passwordController.text = '';
                         },
@@ -152,7 +176,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(
                       50,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("SUCCESS")));
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RouteNames.tabRoute,
+                          (route) => false,
+                        );
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!")));
+                      }
+                    },
                     child: Center(
                       child: Container(
                         padding: EdgeInsets.symmetric(
