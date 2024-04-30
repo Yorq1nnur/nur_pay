@@ -1,4 +1,4 @@
-package uz.nur.pay.nur_pay
+package uz.nur.pay
 
 import io.flutter.embedding.android.FlutterActivity
 
