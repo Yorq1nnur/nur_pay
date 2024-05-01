@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nur_pay/blocs/auth/auth_event.dart';
+import 'package:nur_pay/blocs/auth/auth_state.dart';
 
-part 'auth_event.dart';
-
-part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc()
@@ -11,7 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           AuthInitial(),
         ) {
     on<AuthEvent>((event, emit) {
-      // TODO: implement event handler
+
     });
   }
 }

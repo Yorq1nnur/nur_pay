@@ -87,13 +87,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.w500,
                           color: AppColors.c676767,
                         ),
-                        onTap: () {
-                          _userNameController.text = '';
-                        },
                         controller: _userNameController,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
+                          labelText: "Username or Email",
+                          labelStyle: AppTextStyle.interBold.copyWith(
+                              fontSize: 15.w,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.c676767),
                           prefixIcon: Icon(
                             Icons.person,
                             size: 30.w,
@@ -111,13 +113,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        obscureText: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return "WRONG PASSWORD!!!";
                           } else if (!AppConstants.passwordRegExp
                               .hasMatch(value)) {
-                            return "WRONG PASSWORD FORMATT!!!";
+                            return "WRONG PASSWORD FORMAT!!!";
                           } else {
                             return null;
                           }
@@ -129,6 +132,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: AppColors.c676767,
                         ),
                         decoration: InputDecoration(
+                          labelText: "Password",
+                          labelStyle: AppTextStyle.interBold.copyWith(
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.c676767,
+                          ),
                           suffixIcon: IconButton(
                             icon: SvgPicture.asset(
                               isVisible

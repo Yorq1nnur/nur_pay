@@ -12,7 +12,20 @@
           "package_name": "uz.nur.pay"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "247041905668-lqqkepvn9k6d2ssqbbqrppjbl48g5at5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uz.nur.pay",
+            "certificate_hash": "fdbf01f4aef4cec8246d8000b3c16ee61a9cbfcd"
+          }
+        },
+        {
+          "client_id": "247041905668-qd4un5q4q3m51rcef1v78ro6vugijn3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB5WKzcB8bkbvs5BG4saBmxcPO_t5AIeNc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247041905668-e9gq5efue3vh4bsd0db067u61kmlve79.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "247041905668-8ckedqk77r8kliun76j1bf2kr5l599b7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "uz.nur.pay.nurPay"
+              }
+            }
+          ]
         }
       }
     }
