@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
+import 'package:nur_pay/utils/constants/app_constants.dart';
 import 'package:nur_pay/utils/images/app_images.dart';
 import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
 import 'package:nur_pay/utils/styles/app_text_style.dart';
@@ -19,6 +20,10 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool isVisible = true;
+  final _formKey = GlobalKey<FormState>();
+
+  String firstPassword = '';
+  String secondPassword = '';
 
   @override
   Widget build(
@@ -55,10 +60,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 30.getH(),
                 Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "WRONG EMAIL!!!";
+                          } else if (!AppConstants.emailRegExp
+                              .hasMatch(value)) {
+                            return "WRONG EMAIL FORMAT!!!";
+                          } else {
+                            return null;
+                          }
+                        },
                         decoration: InputDecoration(
                           labelText: "Username or Email",
                           labelStyle: AppTextStyle.interBold.copyWith(
@@ -82,6 +98,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "WRONG PASSWORD!!!";
+                          } else if (!AppConstants.passwordRegExp
+                                  .hasMatch(value) &&
+                              firstPassword != secondPassword) {
+                            return "WRONG PASSWORD FORMAT!!!";
+                          } else {
+                            return null;
+                          }
+                        },
                         decoration: InputDecoration(
                           labelText: "Password",
                           labelStyle: AppTextStyle.interBold.copyWith(
