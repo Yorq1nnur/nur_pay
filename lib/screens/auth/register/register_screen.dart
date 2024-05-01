@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
@@ -22,8 +23,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isVisible = true;
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _firstPasswordController =
+      TextEditingController();
+  final TextEditingController _secondPasswordController =
+      TextEditingController();
+
   String firstPassword = '';
   String secondPassword = '';
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _firstPasswordController.dispose();
+    _secondPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(
@@ -65,6 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: _emailController,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return "WRONG EMAIL!!!";
@@ -98,12 +115,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: _firstPasswordController,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return "WRONG PASSWORD!!!";
                           } else if (!AppConstants.passwordRegExp
-                                  .hasMatch(value) &&
-                              firstPassword != secondPassword) {
+                              .hasMatch(value)) {
                             return "WRONG PASSWORD FORMAT!!!";
                           } else {
                             return null;
@@ -150,12 +168,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: _secondPasswordController,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "WRONG PASSWORD!!!";
+                          } else if (!AppConstants.passwordRegExp
+                                  .hasMatch(value) &&
+                              firstPassword != secondPassword) {
+                            return "WRONG PASSWORD FORMAT!!!";
+                          } else {
+                            return null;
+                          }
+                        },
                         decoration: InputDecoration(
                           labelText: "Confirm Password",
                           labelStyle: AppTextStyle.interBold.copyWith(
-                              fontSize: 15.w,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.c676767),
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.c676767,
+                          ),
                           suffixIcon: IconButton(
                             icon: SvgPicture.asset(
                               isVisible
@@ -193,18 +225,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 50.getH(),
-                Center(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(
-                      50,
-                    ),
-                    onTap: () {},
-                    child: Center(
+                Expanded(
+                  child: Center(
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(
+                        50,
+                      ),
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.blue,
+                              duration: const Duration(
+                                seconds: 3,
+                              ),
+                              content: Text(
+                                "SUCCESS",
+                                textAlign: TextAlign.center,
+                                style: AppTextStyle.interSemiBold,
+                              ),
+                            ),
+                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            RouteNames.loginRoute,
+                            (route) => false,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.red,
+                              duration: const Duration(
+                                seconds: 3,
+                              ),
+                              content: Text(
+                                textAlign: TextAlign.center,
+                                style: AppTextStyle.interSemiBold,
+                                "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
+                              ),
+                            ),
+                          );
+                        }
+                      },
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10.h,
-                          horizontal: 70.w,
-                        ),
+                        height: 50.h,
+                        width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                             50,
@@ -223,12 +288,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ],
                         ),
-                        child: Text(
-                          "Login",
-                          style: AppTextStyle.interBlack.copyWith(
-                            fontSize: 20.w,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.white,
+                        child: Center(
+                          child: Text(
+                            "Create Account",
+                            style: AppTextStyle.interBlack.copyWith(
+                              fontSize: 20.w,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.white,
+                            ),
                           ),
                         ),
                       ),
