@@ -23,6 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _firstPasswordController =
       TextEditingController();
   final TextEditingController _secondPasswordController =
@@ -36,6 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _emailController.dispose();
     _firstPasswordController.dispose();
     _secondPasswordController.dispose();
+    _userNameController.dispose();
     super.dispose();
   }
 
@@ -79,10 +81,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: _userNameController,
+                        decoration: InputDecoration(
+                          labelText: "Username",
+                          labelStyle: AppTextStyle.interBold.copyWith(
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.c676767,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.person,
+                            size: 30.w,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: const BorderSide(
+                              color: AppColors.cA8A8A9,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _emailController,
+                        controller: _userNameController,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return "WRONG EMAIL!!!";
@@ -94,11 +123,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
-                          labelText: "Username or Email",
+                          labelText: "Email",
                           labelStyle: AppTextStyle.interBold.copyWith(
-                              fontSize: 15.w,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.c676767),
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.c676767,
+                          ),
                           prefixIcon: Icon(
                             Icons.person,
                             size: 30.w,

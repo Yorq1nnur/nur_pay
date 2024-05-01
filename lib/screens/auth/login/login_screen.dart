@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          labelText: "Username or Email",
+                          labelText: "Email",
                           labelStyle: AppTextStyle.interBold.copyWith(
                               fontSize: 15.w,
                               fontWeight: FontWeight.w500,
