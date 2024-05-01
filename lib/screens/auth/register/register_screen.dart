@@ -80,6 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _emailController,
                         validator: (String? value) {
@@ -115,6 +117,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        onChanged: (v) {
+                          firstPassword = v;
+                        },
+                        keyboardType: TextInputType.visiblePassword,
+                        textInputAction: TextInputAction.next,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _firstPasswordController,
                         validator: (String? value) {
@@ -168,15 +175,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        onChanged: (v) {
+                          secondPassword = v;
+                        },
+                        keyboardType: TextInputType.visiblePassword,
+                        textInputAction: TextInputAction.done,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _secondPasswordController,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return "WRONG PASSWORD!!!";
-                          } else if (!AppConstants.passwordRegExp
-                                  .hasMatch(value) &&
-                              firstPassword != secondPassword) {
-                            return "WRONG PASSWORD FORMAT!!!";
+                          } else if (firstPassword != secondPassword) {
+                            return "BOTH PASSWORDS MUST MATCH!!!";
                           } else {
                             return null;
                           }
@@ -225,77 +235,75 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 50.getH(),
-                Expanded(
-                  child: Center(
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(
-                        50,
-                      ),
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.blue,
-                              duration: const Duration(
-                                seconds: 3,
-                              ),
-                              content: Text(
-                                "SUCCESS",
-                                textAlign: TextAlign.center,
-                                style: AppTextStyle.interSemiBold,
-                              ),
+                Center(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(
+                      50,
+                    ),
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.blue,
+                            duration: const Duration(
+                              seconds: 3,
                             ),
-                          );
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            RouteNames.loginRoute,
-                            (route) => false,
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.red,
-                              duration: const Duration(
-                                seconds: 3,
-                              ),
-                              content: Text(
-                                textAlign: TextAlign.center,
-                                style: AppTextStyle.interSemiBold,
-                                "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
-                              ),
+                            content: Text(
+                              "SUCCESS",
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.interSemiBold,
                             ),
-                          );
-                        }
-                      },
-                      child: Container(
-                        height: 50.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            50,
                           ),
-                          color: AppColors.c69E4F4,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(
-                                0.25,
-                              ),
-                              blurRadius: 4,
-                              offset: const Offset(
-                                0,
-                                4,
-                              ),
+                        );
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RouteNames.loginRoute,
+                          (route) => false,
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red,
+                            duration: const Duration(
+                              seconds: 3,
                             ),
-                          ],
+                            content: Text(
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.interSemiBold,
+                              "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      height: 50.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          50,
                         ),
-                        child: Center(
-                          child: Text(
-                            "Create Account",
-                            style: AppTextStyle.interBlack.copyWith(
-                              fontSize: 20.w,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.white,
+                        color: AppColors.c69E4F4,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(
+                              0.25,
                             ),
+                            blurRadius: 4,
+                            offset: const Offset(
+                              0,
+                              4,
+                            ),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Create Account",
+                          style: AppTextStyle.interBlack.copyWith(
+                            fontSize: 20.w,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white,
                           ),
                         ),
                       ),
@@ -378,7 +386,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
-                40.getH(),
+                20.getH(),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 35.w,
@@ -411,7 +419,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )

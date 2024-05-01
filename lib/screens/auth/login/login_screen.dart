@@ -166,79 +166,77 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 50.getH(),
-                Expanded(
-                  child: Center(
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(
-                        50,
-                      ),
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.blue,
-                              duration: const Duration(
-                                seconds: 3,
-                              ),
-                              content: Text(
-                                "SUCCESS",
-                                textAlign: TextAlign.center,
-                                style: AppTextStyle.interSemiBold,
-                              ),
+                Center(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(
+                      50,
+                    ),
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.blue,
+                            duration: const Duration(
+                              seconds: 3,
                             ),
-                          );
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            RouteNames.tabRoute,
-                            (route) => false,
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.red,
-                              duration: const Duration(
-                                seconds: 3,
-                              ),
-                              content: Text(
-                                textAlign: TextAlign.center,
-                                style: AppTextStyle.interSemiBold,
-                                "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
-                              ),
+                            content: Text(
+                              "SUCCESS",
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.interSemiBold,
                             ),
-                          );
-                        }
-                      },
-                      child: Center(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 10.h,
-                            horizontal: 70.w,
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              50,
+                        );
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RouteNames.tabRoute,
+                          (route) => false,
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red,
+                            duration: const Duration(
+                              seconds: 3,
                             ),
-                            color: AppColors.c69E4F4,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(
-                                  0.25,
-                                ),
-                                blurRadius: 4,
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                              ),
-                            ],
+                            content: Text(
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.interSemiBold,
+                              "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
+                            ),
                           ),
-                          child: Text(
-                            "Login",
-                            style: AppTextStyle.interBlack.copyWith(
-                              fontSize: 20.w,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.white,
+                        );
+                      }
+                    },
+                    child: Center(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10.h,
+                          horizontal: 70.w,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            50,
+                          ),
+                          color: AppColors.c69E4F4,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(
+                                0.25,
+                              ),
+                              blurRadius: 4,
+                              offset: const Offset(
+                                0,
+                                4,
+                              ),
                             ),
+                          ],
+                        ),
+                        child: Text(
+                          "Login",
+                          style: AppTextStyle.interBlack.copyWith(
+                            fontSize: 20.w,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white,
                           ),
                         ),
                       ),
