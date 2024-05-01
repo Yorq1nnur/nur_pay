@@ -20,6 +20,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool isVisible = true;
+  bool isSecondVisible = true;
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
@@ -66,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                60.getH(),
+                40.getH(),
                 Text(
                   "Create\nan account",
                   style: AppTextStyle.interBold.copyWith(
@@ -147,6 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        obscureText: isVisible,
                         onChanged: (v) {
                           firstPassword = v;
                         },
@@ -205,6 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       24.getH(),
                       TextFormField(
+                        obscureText: isSecondVisible,
                         onChanged: (v) {
                           secondPassword = v;
                         },
@@ -242,7 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             onPressed: () {
-                              isVisible = !isVisible;
+                              isSecondVisible = !isSecondVisible;
                               setState(() {});
                             },
                           ),
@@ -264,7 +267,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
-                50.getH(),
+                30.getH(),
                 Center(
                   child: InkWell(
                     borderRadius: BorderRadius.circular(
@@ -340,7 +343,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
-                50.getH(),
+                30.getH(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
