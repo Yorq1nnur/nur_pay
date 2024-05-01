@@ -66,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                80.getH(),
+                60.getH(),
                 Text(
                   "Create\nan account",
                   style: AppTextStyle.interBold.copyWith(
@@ -107,11 +107,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
+                      24.getH(),
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _userNameController,
+                        controller: _emailController,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return "WRONG EMAIL!!!";
