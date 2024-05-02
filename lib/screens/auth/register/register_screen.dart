@@ -490,14 +490,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           listener: (context, state) {
             if (state.formStatus == FormStatus.error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage)),
+              showErrorForRegister(
+                state.errorMessage,
+                context,
               );
             }
             if (state.formStatus == FormStatus.authenticated) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                RouteNames.loginRoute,
+                RouteNames.tabRoute,
                 (route) => false,
               );
             }

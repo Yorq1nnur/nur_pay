@@ -200,18 +200,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   );
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.red,
-                                  duration: const Duration(
-                                    seconds: 3,
-                                  ),
-                                  content: Text(
-                                    textAlign: TextAlign.center,
-                                    style: AppTextStyle.interSemiBold,
+                              showSnackBar(
+                                context: context,
+                                message:
                                     "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
-                                  ),
-                                ),
                               );
                             }
                           },
@@ -378,12 +370,12 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           listener: (context, state) {
             if (state.formStatus == FormStatus.error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    state.errorMessage,
-                  ),
-                ),
+              debugPrint(
+                "THIS IS LOGIN ERROR: ${state.errorMessage}",
+              );
+              showErrorForLogin(
+                state.errorMessage,
+                context,
               );
             }
             if (state.formStatus == FormStatus.authenticated) {
