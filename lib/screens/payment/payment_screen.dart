@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({
@@ -14,6 +15,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(
     BuildContext context,
   ) {
-    return const Scaffold();
+    return AnnotatedRegion(
+      value: systemUiOverlayStyle,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            "Payment screen",
+          ),
+        ),
+      ),
+    );
   }
 }

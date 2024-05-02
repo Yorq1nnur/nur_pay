@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({
@@ -14,11 +15,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(
     BuildContext context,
   ) {
-    return  Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "History Screen",
+    return AnnotatedRegion(
+      value: systemUiOverlayStyle,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            "History Screen",
+          ),
         ),
       ),
     );

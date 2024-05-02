@@ -88,6 +88,7 @@ import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nur_pay/utils/images/app_images.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 import '../../data/local/storage_repo.dart';
 
@@ -148,16 +149,19 @@ class _SplashScreenState extends State<SplashScreen> {
       context,
     ).size.height;
 
-    return Scaffold(
-      body: Container(
-        height: height,
-        width: width,
-        decoration: const BoxDecoration(
-          gradient: AppColors.authContainerGradient,
-        ),
-        child: Center(
-          child: Lottie.asset(
-            AppImages.splash,
+    return AnnotatedRegion(
+      value: systemUiOverlayStyle,
+      child: Scaffold(
+        body: Container(
+          height: height,
+          width: width,
+          decoration: const BoxDecoration(
+            gradient: AppColors.authContainerGradient,
+          ),
+          child: Center(
+            child: Lottie.asset(
+              AppImages.splash,
+            ),
           ),
         ),
       ),
