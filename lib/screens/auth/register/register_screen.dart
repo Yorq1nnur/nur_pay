@@ -304,7 +304,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       userModel: UserModel(
                                         username: _userNameController.text,
                                         lastname: _userNameController.text,
-                                        password: _secondPasswordController.text,
+                                        password:
+                                            _secondPasswordController.text,
                                         userId: "",
                                         imageUrl: '',
                                         phoneNumber:
@@ -313,19 +314,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                     ),
                                   );
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.blue,
-                                  duration: const Duration(
-                                    seconds: 3,
-                                  ),
-                                  content: Text(
-                                    "SUCCESS",
-                                    textAlign: TextAlign.center,
-                                    style: AppTextStyle.interSemiBold,
-                                  ),
-                                ),
-                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -478,7 +466,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Navigator.pushReplacementNamed(
                                   context,
                                   RouteNames.loginRoute,
-                                  arguments: '',
                                 );
                               },
                               child: Center(
@@ -511,8 +498,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 RouteNames.loginRoute,
-                arguments:
-                    "${_userNameController.text.toLowerCase()}@gmail.com",
                 (route) => false,
               );
             }

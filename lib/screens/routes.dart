@@ -39,9 +39,7 @@ class AppRoutes {
         );
       case RouteNames.loginRoute:
         return navigate(
-          LoginScreen(
-            currentEmail: settings.arguments as String? ?? "",
-          ),
+          const LoginScreen(),
         );
       case RouteNames.onBoardingRoute:
         return navigate(

@@ -17,10 +17,7 @@ import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
     super.key,
-    required this.currentEmail,
   });
-
-  final String currentEmail;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -49,9 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
         resizeToAvoidBottomInset: false,
         body: BlocConsumer<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (widget.currentEmail.isNotEmpty) {
-              _userNameController.text = widget.currentEmail;
-            }
             return Container(
               height: MediaQuery.sizeOf(
                 context,
