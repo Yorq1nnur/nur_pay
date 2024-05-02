@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/screens/tab/card/card_screen.dart';
 import 'package:nur_pay/screens/tab/history/history_screen.dart';
 import 'package:nur_pay/screens/tab/home/home_screen.dart';
 import 'package:nur_pay/screens/tab/profile/profile_screen.dart';
+import 'package:nur_pay/utils/colors/app_colors.dart';
+import 'package:nur_pay/utils/images/app_images.dart';
 
 class TabScreen extends StatefulWidget {
-  const TabScreen({super.key});
+  const TabScreen({
+    super.key,
+  });
 
   @override
   State<TabScreen> createState() => _TabScreenState();
@@ -23,11 +28,17 @@ class _TabScreenState extends State<TabScreen> {
   int activeIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: screens[activeIndex],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        selectedItemColor: AppColors.black,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
         currentIndex: activeIndex,
         onTap: (newIndex) {
           activeIndex = newIndex;
@@ -35,56 +46,36 @@ class _TabScreenState extends State<TabScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.category,
-              color: Colors.black,
-              size: 20.w,
+            icon: SvgPicture.asset(
+              AppImages.home,
+              height: 30.h,
+              width: 30.w,
             ),
-            label: "Categories",
-            activeIcon: Icon(
-              Icons.category,
-              color: Colors.blue,
-              size: 30.w,
-            ),
+            label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.book,
-              color: Colors.black,
-              size: 20.w,
+            icon: SvgPicture.asset(
+              AppImages.history,
+              height: 24.h,
+              width: 24.w,
             ),
-            label: "Books",
-            activeIcon: Icon(
-              Icons.book,
-              color: Colors.blue,
-              size: 30.w,
-            ),
+            label: "History",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              color: Colors.black,
-              size: 20.w,
+            icon: SvgPicture.asset(
+              AppImages.card,
+              height: 24.h,
+              width: 24.w,
             ),
-            label: "Settings",
-            activeIcon: Icon(
-              Icons.settings,
-              color: Colors.blue,
-              size: 30.w,
-            ),
+            label: "Cards",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              color: Colors.black,
-              size: 20.w,
+            icon: SvgPicture.asset(
+              AppImages.profile,
+              height: 24.h,
+              width: 24.w,
             ),
-            label: "Settings",
-            activeIcon: Icon(
-              Icons.settings,
-              color: Colors.blue,
-              size: 30.w,
-            ),
+            label: "Profile",
           ),
         ],
       ),

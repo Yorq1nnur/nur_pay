@@ -8,6 +8,10 @@ class AppImages {
   static const String google = "assets/icons/google.svg";
   static const String eye = "assets/icons/eye.svg";
   static const String eyeUnVisible = "assets/icons/eye_un_visible.svg";
+  static const String home = "assets/icons/home.svg";
+  static const String card = "assets/icons/card.svg";
+  static const String profile = "assets/icons/bottom_profile.svg";
+  static const String history = "assets/icons/history.svg";
 
   //.jpg
   static const String firstOnboard = "assets/images/first_onboard.png";
