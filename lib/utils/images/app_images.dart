@@ -18,5 +18,4 @@ class AppImages {
 
   //lottie
   static const String splash = "assets/lottie/splash.json";
-
 }

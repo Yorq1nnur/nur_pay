@@ -1,39 +1,39 @@
 import 'package:equatable/equatable.dart';
+import 'package:nur_pay/data/models/form_status.dart';
+import 'package:nur_pay/data/models/user_model.dart';
 
-sealed class AuthState extends Equatable {
-  const AuthState();
-}
+class AuthState extends Equatable {
+  final String errorMessage;
+  final String statusMessage;
+  final FormStatus formStatus;
+  final UserModel userModel;
 
-final class AuthInitial extends AuthState {
-  @override
-  List<Object> get props => [];
-}
-
-final class AuthLoadingState extends AuthState {
-  final bool isLoading;
-
-  const AuthLoadingState({
-    required this.isLoading,
+  const AuthState({
+    required this.statusMessage,
+    required this.formStatus,
+    required this.errorMessage,
+    required this.userModel,
   });
 
-  @override
-  List<Object> get props => [
-        isLoading,
-      ];
-}
-
-final class AuthSuccessState extends AuthState {
-  @override
-  List<Object> get props => [];
-}
-
-final class AuthErrorState extends AuthState {
-  final String errorText;
-
-  const AuthErrorState({this.errorText = ''});
+  AuthState copyWith({
+    String? errorMessage,
+    String? statusMessage,
+    FormStatus? formStatus,
+    UserModel? userModel,
+  }) {
+    return AuthState(
+      statusMessage: statusMessage ?? this.statusMessage,
+      formStatus: formStatus ?? this.formStatus,
+      errorMessage: errorMessage ?? this.errorMessage,
+      userModel: userModel ?? this.userModel,
+    );
+  }
 
   @override
-  List<Object> get props => [
-        errorText,
+  List<Object?> get props => [
+        statusMessage,
+        errorMessage,
+        formStatus,
+        userModel,
       ];
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_utils/my_utils.dart';
-import 'package:nur_pay/data/local/storage_repository.dart';
 import 'package:nur_pay/screens/on_boarding/pages/boarding_page_sample.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
 import 'package:nur_pay/utils/images/app_images.dart';
 import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
 import 'package:nur_pay/utils/styles/app_text_style.dart';
 import 'package:nur_pay/screens/routes.dart';
+
+import '../../data/local/storage_repo.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({

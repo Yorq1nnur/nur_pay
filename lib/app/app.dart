@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nur_pay/blocs/auth/auth_bloc.dart';
-import 'package:nur_pay/data/repositories/auth_repository.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/services/local_notification_service.dart';
+
+import '../data/repositories/auth_repo/auth_repo.dart';
 
 class App extends StatelessWidget {
   App({
@@ -29,7 +30,9 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => AuthBloc(),
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
+            ),
           ),
         ],
         child: MaterialApp(

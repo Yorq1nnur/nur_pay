@@ -5,4 +5,5 @@ class AppConstants {
 
   static RegExp passwordRegExp =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+  static RegExp textRegExp = RegExp(r'^[a-zA-Z\s]+$');
 }
