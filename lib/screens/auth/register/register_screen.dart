@@ -312,6 +312,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         phoneNumber:
                                             _secondPasswordController.text,
                                         email: _emailController.text,
+                                        fcmToken: '',
+                                        authUUId: '',
                                       ),
                                     ),
                                   );

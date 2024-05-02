@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
-class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({
-    super.key,
-  });
+class BiometricScreen extends StatefulWidget {
+  const BiometricScreen({super.key});
 
   @override
-  State<PaymentScreen> createState() => _PaymentScreenState();
+  State<BiometricScreen> createState() => _BiometricScreenState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen> {
+class _BiometricScreenState extends State<BiometricScreen> {
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: systemUiOverlayStyle,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            "Payment screen",
+            "Biometric pin screen",
           ),
         ),
       ),

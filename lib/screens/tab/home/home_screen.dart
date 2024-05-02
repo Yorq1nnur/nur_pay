@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -14,11 +15,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(
     BuildContext context,
   ) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "Home Screen",
+    return AnnotatedRegion(
+      value: systemUiOverlayStyle,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            "Home Screen",
+          ),
         ),
       ),
     );
