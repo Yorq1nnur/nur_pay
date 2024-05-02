@@ -1,10 +1,38 @@
 import 'package:equatable/equatable.dart';
+import 'package:nur_pay/data/models/form_status.dart';
+import 'package:nur_pay/data/models/user_model.dart';
 
-abstract class UserProfileState extends Equatable {
-  const UserProfileState();
-}
+class UserProfileState extends Equatable {
+  final UserModel userModel;
+  final FormStatus formStatus;
+  final String errorMessage;
+  final String statusMessage;
 
-class Initial extends UserProfileState {
+  const UserProfileState({
+    required this.formStatus,
+    required this.userModel,
+    required this.errorMessage,
+    required this.statusMessage,
+  });
+
+  UserProfileState copyWith({
+    UserModel? userModel,
+    FormStatus? formStatus,
+    String? errorMessage,
+    String? statusMessage,
+  }) =>
+      UserProfileState(
+        formStatus: formStatus ?? this.formStatus,
+        userModel: userModel ?? this.userModel,
+        errorMessage: errorMessage ?? this.errorMessage,
+        statusMessage: statusMessage ?? this.statusMessage,
+      );
+
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [
+        userModel,
+        formStatus,
+        errorMessage,
+        statusMessage,
+      ];
 }

@@ -115,6 +115,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             imageUrl: userCredential.user!.photoURL ?? '',
             phoneNumber: userCredential.user!.phoneNumber ?? '',
             email: userCredential.user!.email ?? '',
+            fcmToken: '',
+            authUUId: '',
           ),
         ),
       );
