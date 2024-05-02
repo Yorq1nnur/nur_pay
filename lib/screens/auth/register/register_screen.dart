@@ -192,9 +192,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               decoration: InputDecoration(
                                 labelText: "Password",
                                 labelStyle: AppTextStyle.interBold.copyWith(
-                                    fontSize: 15.w,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.c676767),
+                                  fontSize: 15.w,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.c676767,
+                                ),
                                 suffixIcon: IconButton(
                                   icon: SvgPicture.asset(
                                     isVisible
@@ -257,7 +258,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 suffixIcon: IconButton(
                                   icon: SvgPicture.asset(
-                                    isVisible
+                                    isSecondVisible
                                         ? AppImages.eye
                                         : AppImages.eyeUnVisible,
                                     width: 25.w,

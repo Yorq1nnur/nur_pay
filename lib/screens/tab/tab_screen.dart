@@ -50,6 +50,19 @@ class _TabScreenState extends State<TabScreen> {
               AppImages.home,
               height: 30.h,
               width: 30.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+            activeIcon: SvgPicture.asset(
+              AppImages.home,
+              height: 30.h,
+              width: 30.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.black,
+                BlendMode.srcIn,
+              ),
             ),
             label: "Home",
           ),
@@ -58,6 +71,19 @@ class _TabScreenState extends State<TabScreen> {
               AppImages.history,
               height: 24.h,
               width: 24.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+            activeIcon: SvgPicture.asset(
+              AppImages.history,
+              height: 24.h,
+              width: 24.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.black,
+                BlendMode.srcIn,
+              ),
             ),
             label: "History",
           ),
@@ -66,14 +92,40 @@ class _TabScreenState extends State<TabScreen> {
               AppImages.card,
               height: 24.h,
               width: 24.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+            activeIcon: SvgPicture.asset(
+              AppImages.card,
+              height: 24.h,
+              width: 24.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.black,
+                BlendMode.srcIn,
+              ),
             ),
             label: "Cards",
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AppImages.profile,
-              height: 24.h,
-              width: 24.w,
+              height: 30.h,
+              width: 30.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+            activeIcon: SvgPicture.asset(
+              AppImages.profile,
+              height: 30.h,
+              width: 30.w,
+              colorFilter: const ColorFilter.mode(
+                Colors.black,
+                BlendMode.srcIn,
+              ),
             ),
             label: "Profile",
           ),
