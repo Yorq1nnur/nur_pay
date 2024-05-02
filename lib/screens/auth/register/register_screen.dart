@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
+import 'package:nur_pay/blocs/auth/auth_bloc.dart';
+import 'package:nur_pay/blocs/auth/auth_event.dart';
+import 'package:nur_pay/blocs/auth/auth_state.dart';
+import 'package:nur_pay/data/models/form_status.dart';
+import 'package:nur_pay/data/models/user_model.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
 import 'package:nur_pay/utils/constants/app_constants.dart';
@@ -50,415 +56,452 @@ class _RegisterScreenState extends State<RegisterScreen> {
       value: systemUiOverlayStyle,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Container(
-          height: MediaQuery.sizeOf(
-            context,
-          ).height,
-          width: MediaQuery.sizeOf(
-            context,
-          ).width,
-          decoration: const BoxDecoration(
-            gradient: AppColors.authContainerGradient,
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 15.w,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                40.getH(),
-                Text(
-                  "Create\nan account",
-                  style: AppTextStyle.interBold.copyWith(
-                    fontSize: 40.w,
-                    fontWeight: FontWeight.w900,
-                  ),
+        body: BlocConsumer<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return Container(
+              height: MediaQuery.sizeOf(
+                context,
+              ).height,
+              width: MediaQuery.sizeOf(
+                context,
+              ).width,
+              decoration: const BoxDecoration(
+                gradient: AppColors.authContainerGradient,
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
                 ),
-                30.getH(),
-                Form(
-                  key: _formKey,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _userNameController,
-                        decoration: InputDecoration(
-                          labelText: "Username",
-                          labelStyle: AppTextStyle.interBold.copyWith(
-                            fontSize: 15.w,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.c676767,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 30.w,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                            borderSide: const BorderSide(
-                              color: AppColors.cA8A8A9,
-                              width: 1,
-                            ),
-                          ),
+                      40.getH(),
+                      Text(
+                        "Create\nan account",
+                        style: AppTextStyle.interBold.copyWith(
+                          fontSize: 40.w,
+                          fontWeight: FontWeight.w900,
                         ),
                       ),
-                      24.getH(),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _emailController,
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return "WRONG EMAIL!!!";
-                          } else if (!AppConstants.emailRegExp
-                              .hasMatch(value)) {
-                            return "WRONG EMAIL FORMAT!!!";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Email",
-                          labelStyle: AppTextStyle.interBold.copyWith(
-                            fontSize: 15.w,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.c676767,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 30.w,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                            borderSide: const BorderSide(
-                              color: AppColors.cA8A8A9,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                      ),
-                      24.getH(),
-                      TextFormField(
-                        obscureText: isVisible,
-                        onChanged: (v) {
-                          firstPassword = v;
-                        },
-                        keyboardType: TextInputType.visiblePassword,
-                        textInputAction: TextInputAction.next,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _firstPasswordController,
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return "WRONG PASSWORD!!!";
-                          } else if (!AppConstants.passwordRegExp
-                              .hasMatch(value)) {
-                            return "WRONG PASSWORD FORMAT!!!";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: AppTextStyle.interBold.copyWith(
-                              fontSize: 15.w,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.c676767),
-                          suffixIcon: IconButton(
-                            icon: SvgPicture.asset(
-                              isVisible
-                                  ? AppImages.eye
-                                  : AppImages.eyeUnVisible,
-                              width: 25.w,
-                              height: 25.h,
-                              fit: BoxFit.fill,
-                              colorFilter: const ColorFilter.mode(
-                                Colors.black,
-                                BlendMode.srcIn,
+                      30.getH(),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFormField(
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: _userNameController,
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "WRONG USERNAME!!!";
+                                } else if (!AppConstants.textRegExp
+                                    .hasMatch(value)) {
+                                  return "WRONG USERNAME FORMAT!!!";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Username",
+                                labelStyle: AppTextStyle.interBold.copyWith(
+                                  fontSize: 15.w,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.c676767,
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  size: 30.w,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
+                                  borderSide: const BorderSide(
+                                    color: AppColors.cA8A8A9,
+                                    width: 1,
+                                  ),
+                                ),
                               ),
                             ),
-                            onPressed: () {
-                              isVisible = !isVisible;
-                              setState(() {});
-                            },
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            size: 30.w,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                            borderSide: const BorderSide(
-                              color: AppColors.cA8A8A9,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                      ),
-                      24.getH(),
-                      TextFormField(
-                        obscureText: isSecondVisible,
-                        onChanged: (v) {
-                          secondPassword = v;
-                        },
-                        keyboardType: TextInputType.visiblePassword,
-                        textInputAction: TextInputAction.done,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _secondPasswordController,
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return "WRONG PASSWORD!!!";
-                          } else if (firstPassword != secondPassword) {
-                            return "BOTH PASSWORDS MUST MATCH!!!";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Confirm Password",
-                          labelStyle: AppTextStyle.interBold.copyWith(
-                            fontSize: 15.w,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.c676767,
-                          ),
-                          suffixIcon: IconButton(
-                            icon: SvgPicture.asset(
-                              isVisible
-                                  ? AppImages.eye
-                                  : AppImages.eyeUnVisible,
-                              width: 25.w,
-                              height: 25.h,
-                              fit: BoxFit.fill,
-                              colorFilter: const ColorFilter.mode(
-                                Colors.black,
-                                BlendMode.srcIn,
+                            24.getH(),
+                            TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: _emailController,
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "WRONG EMAIL!!!";
+                                } else if (!AppConstants.emailRegExp
+                                    .hasMatch(value)) {
+                                  return "WRONG EMAIL FORMAT!!!";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Email",
+                                labelStyle: AppTextStyle.interBold.copyWith(
+                                  fontSize: 15.w,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.c676767,
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  size: 30.w,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
+                                  borderSide: const BorderSide(
+                                    color: AppColors.cA8A8A9,
+                                    width: 1,
+                                  ),
+                                ),
                               ),
                             ),
-                            onPressed: () {
-                              isSecondVisible = !isSecondVisible;
-                              setState(() {});
-                            },
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            size: 30.w,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              10,
+                            24.getH(),
+                            TextFormField(
+                              obscureText: isVisible,
+                              onChanged: (v) {
+                                firstPassword = v;
+                              },
+                              keyboardType: TextInputType.visiblePassword,
+                              textInputAction: TextInputAction.next,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: _firstPasswordController,
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "WRONG PASSWORD!!!";
+                                } else if (!AppConstants.passwordRegExp
+                                    .hasMatch(value)) {
+                                  return "WRONG PASSWORD FORMAT!!!";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Password",
+                                labelStyle: AppTextStyle.interBold.copyWith(
+                                    fontSize: 15.w,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.c676767),
+                                suffixIcon: IconButton(
+                                  icon: SvgPicture.asset(
+                                    isVisible
+                                        ? AppImages.eye
+                                        : AppImages.eyeUnVisible,
+                                    width: 25.w,
+                                    height: 25.h,
+                                    fit: BoxFit.fill,
+                                    colorFilter: const ColorFilter.mode(
+                                      Colors.black,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    isVisible = !isVisible;
+                                    setState(() {});
+                                  },
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  size: 30.w,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
+                                  borderSide: const BorderSide(
+                                    color: AppColors.cA8A8A9,
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
                             ),
-                            borderSide: const BorderSide(
-                              color: AppColors.cA8A8A9,
-                              width: 1,
+                            24.getH(),
+                            TextFormField(
+                              obscureText: isSecondVisible,
+                              onChanged: (v) {
+                                secondPassword = v;
+                              },
+                              keyboardType: TextInputType.visiblePassword,
+                              textInputAction: TextInputAction.done,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: _secondPasswordController,
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "WRONG PASSWORD!!!";
+                                } else if (firstPassword != secondPassword) {
+                                  return "BOTH PASSWORDS MUST MATCH!!!";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Confirm Password",
+                                labelStyle: AppTextStyle.interBold.copyWith(
+                                  fontSize: 15.w,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.c676767,
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: SvgPicture.asset(
+                                    isVisible
+                                        ? AppImages.eye
+                                        : AppImages.eyeUnVisible,
+                                    width: 25.w,
+                                    height: 25.h,
+                                    fit: BoxFit.fill,
+                                    colorFilter: const ColorFilter.mode(
+                                      Colors.black,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    isSecondVisible = !isSecondVisible;
+                                    setState(() {});
+                                  },
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  size: 30.w,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
+                                  borderSide: const BorderSide(
+                                    color: AppColors.cA8A8A9,
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      30.getH(),
+                      Center(
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(
+                            50,
+                          ),
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              context.read<AuthBloc>().add(
+                                    RegisterUserEvent(
+                                      userModel: UserModel(
+                                        username: _userNameController.text,
+                                        lastname: _userNameController.text,
+                                        password:
+                                            _secondPasswordController.text,
+                                        userId: "",
+                                        imageUrl: '',
+                                        phoneNumber:
+                                            _secondPasswordController.text,
+                                        email: _emailController.text,
+                                      ),
+                                    ),
+                                  );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.red,
+                                  duration: const Duration(
+                                    seconds: 3,
+                                  ),
+                                  content: Text(
+                                    textAlign: TextAlign.center,
+                                    style: AppTextStyle.interSemiBold,
+                                    "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          child: Container(
+                            height: 50.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                50,
+                              ),
+                              color: AppColors.c69E4F4,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(
+                                    0.25,
+                                  ),
+                                  blurRadius: 4,
+                                  offset: const Offset(
+                                    0,
+                                    4,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Create Account",
+                                style: AppTextStyle.interBlack.copyWith(
+                                  fontSize: 20.w,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                30.getH(),
-                Center(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(
-                      50,
-                    ),
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.blue,
-                            duration: const Duration(
-                              seconds: 3,
-                            ),
-                            content: Text(
-                              "SUCCESS",
-                              textAlign: TextAlign.center,
-                              style: AppTextStyle.interSemiBold,
+                      30.getH(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 1.h,
+                            width: 100.w,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
                             ),
                           ),
-                        );
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          RouteNames.loginRoute,
-                          (route) => false,
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.red,
-                            duration: const Duration(
-                              seconds: 3,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
                             ),
-                            content: Text(
-                              textAlign: TextAlign.center,
-                              style: AppTextStyle.interSemiBold,
-                              "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
+                            child: Text(
+                              "Or continue with",
+                              style: AppTextStyle.interBold.copyWith(
+                                  fontSize: 14.w,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.c6A707C),
                             ),
                           ),
-                        );
-                      }
-                    },
-                    child: Container(
-                      height: 50.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          50,
-                        ),
-                        color: AppColors.c69E4F4,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(
-                              0.25,
-                            ),
-                            blurRadius: 4,
-                            offset: const Offset(
-                              0,
-                              4,
+                          Container(
+                            height: 1.h,
+                            width: 100.w,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
                             ),
                           ),
                         ],
                       ),
-                      child: Center(
-                        child: Text(
-                          "Create Account",
-                          style: AppTextStyle.interBlack.copyWith(
-                            fontSize: 20.w,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                30.getH(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 1.h,
-                      width: 100.w,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                      ),
-                      child: Text(
-                        "Or continue with",
-                        style: AppTextStyle.interBold.copyWith(
-                            fontSize: 14.w,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.c6A707C),
-                      ),
-                    ),
-                    Container(
-                      height: 1.h,
-                      width: 100.w,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                30.getH(),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                  ),
-                  child: Center(
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(
-                        50,
-                      ),
-                      onTap: () {},
-                      child: Container(
+                      30.getH(),
+                      Padding(
                         padding: EdgeInsets.symmetric(
-                          vertical: 10.h,
-                          horizontal: 30.w,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            50,
-                          ),
-                          gradient: AppColors.loginWithGoogleGradient,
+                          horizontal: 20.w,
                         ),
                         child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SvgPicture.asset(
-                                AppImages.google,
-                                height: 30.w,
-                                width: 30.w,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(
+                              50,
+                            ),
+                            onTap: () {
+                              context.read<AuthBloc>().add(
+                                    SignInWithGoogleUserEvent(),
+                                  );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 30.w,
                               ),
-                              Text(
-                                "Continue with Google",
-                                style: AppTextStyle.interBold.copyWith(
-                                  color: Colors.white,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  50,
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                20.getH(),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 35.w,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "I Already Have an Account",
-                        style: AppTextStyle.interBold.copyWith(
-                          fontSize: 17.w,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.c1E232C,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            RouteNames.loginRoute,
-                          );
-                        },
-                        child: Center(
-                          child: Text(
-                            "Login",
-                            style: AppTextStyle.interBold.copyWith(
-                              fontSize: 17.w,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.c009FFF,
+                                gradient: AppColors.loginWithGoogleGradient,
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppImages.google,
+                                      height: 30.w,
+                                      width: 30.w,
+                                    ),
+                                    Text(
+                                      "Continue with Google",
+                                      style: AppTextStyle.interBold.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
+                      20.getH(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 35.w,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "I Already Have an Account",
+                              style: AppTextStyle.interBold.copyWith(
+                                fontSize: 17.w,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.c1E232C,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  RouteNames.loginRoute,
+                                );
+                              },
+                              child: Center(
+                                child: Text(
+                                  "Login",
+                                  style: AppTextStyle.interBold.copyWith(
+                                    fontSize: 17.w,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.c009FFF,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-          ),
+                ),
+              ),
+            );
+          },
+          listener: (context, state) {
+            if (state.formStatus == FormStatus.error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.errorMessage)),
+              );
+            }
+            if (state.formStatus == FormStatus.authenticated) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteNames.loginRoute,
+                (route) => false,
+              );
+            }
+          },
         ),
       ),
     );

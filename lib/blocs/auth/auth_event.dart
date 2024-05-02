@@ -2,13 +2,35 @@ import 'package:equatable/equatable.dart';
 import 'package:nur_pay/data/models/user_model.dart';
 
 abstract class AuthEvent extends Equatable {
-  const AuthEvent();
+  @override
+  List<Object?> get props => [];
 }
 
-class SigningWithEmailEvent extends AuthEvent {
+class CheckAuthenticationEvent extends AuthEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginUserEvent extends AuthEvent {
+  final String username;
+  final String password;
+
+  LoginUserEvent({
+    required this.username,
+    required this.password,
+  });
+
+  @override
+  List<Object?> get props => [
+        username,
+        password,
+      ];
+}
+
+class RegisterUserEvent extends AuthEvent {
   final UserModel userModel;
 
-  const SigningWithEmailEvent({
+  RegisterUserEvent({
     required this.userModel,
   });
 
@@ -17,39 +39,13 @@ class SigningWithEmailEvent extends AuthEvent {
         userModel,
       ];
 }
-class SigningWithGoogleEvent extends AuthEvent {
-  final UserModel userModel;
 
-  const SigningWithGoogleEvent({
-    required this.userModel,
-  });
-
+class LogOutUserEvent extends AuthEvent {
   @override
-  List<Object?> get props => [
-        userModel,
-      ];
+  List<Object?> get props => [];
 }
-class LoginWithGoogleEvent extends AuthEvent {
-  final UserModel userModel;
 
-  const LoginWithGoogleEvent({
-    required this.userModel,
-  });
-
+class SignInWithGoogleUserEvent extends AuthEvent {
   @override
-  List<Object?> get props => [
-        userModel,
-      ];
-}
-class LoginWithEmailEvent extends AuthEvent {
-  final UserModel userModel;
-
-  const LoginWithEmailEvent({
-    required this.userModel,
-  });
-
-  @override
-  List<Object?> get props => [
-        userModel,
-      ];
+  List<Object?> get props => [];
 }
