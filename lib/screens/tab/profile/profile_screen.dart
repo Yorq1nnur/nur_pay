@@ -14,6 +14,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(
     BuildContext context,
   ) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Profile Screen",
+        ),
+      ),
+    );
   }
 }

@@ -14,6 +14,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(
     BuildContext context,
   ) {
-    return const Scaffold();
+    return  Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "History Screen",
+        ),
+      ),
+    );
   }
 }
