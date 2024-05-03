@@ -50,6 +50,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(formStatus: FormStatus.authenticated));
+      UserModel userModel = UserModel(
+        username: event.username,
+        lastname: event.username,
+        password: event.password,
+        userId: '',
+        imageUrl: FirebaseAuth.instance.currentUser!.photoURL!,
+        phoneNumber: FirebaseAuth.instance.currentUser!.phoneNumber!,
+        email: FirebaseAuth.instance.currentUser!.email!,
+        fcmToken: '',
+        authUUId: FirebaseAuth.instance.currentUser!.uid,
+        ///TODO authUUId yangilanmayabdi!!!
+      );
+      await userProfileRepo.updateUser(
+        userModel,
+      );
     } else {
       emit(state.copyWith(
         formStatus: FormStatus.error,

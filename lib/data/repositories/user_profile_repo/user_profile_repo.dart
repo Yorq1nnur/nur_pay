@@ -43,6 +43,10 @@ class UserProfileRepo {
             .update({
           "userId": documentReference.id,
         });
+      } else {
+        updateUser(
+          userModel,
+        );
       }
 
       return NetworkResponse(
