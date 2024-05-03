@@ -121,14 +121,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         fcmToken: '',
         authUUId: userCredential.user!.uid,
       );
-      print(
+      debugPrint(
         'CURRENT EMAIL: ${userCredential.user!.email}',
       );
 
       await userProfileRepo.insertUser(userModel).whenComplete(() {
         emit(
           state.copyWith(
-              formStatus: FormStatus.authenticated, userModel: userModel,
+            formStatus: FormStatus.authenticated, userModel: userModel,
             // userModel: UserModel(
             //   username: userCredential.user!.displayName ?? "User name",
             //   lastname: userCredential.user!.displayName ?? "Last name",
@@ -143,7 +143,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
         );
       });
-
 
       debugPrint(
         "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$GOOGLE SIGN IN RETURNED USER MODEL: EMAIL: ${state.userModel.email}, USERNAME: ${state.userModel.username}, LASTNAME: ${state.userModel.lastname}, AUTH ID: ${state.userModel.authUUId},",
