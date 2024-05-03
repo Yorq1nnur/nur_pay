@@ -41,7 +41,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
     } else {
       debugPrint(
-          "ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -63,6 +63,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         userModel: event.userModel,
       );
     } else {
+      debugPrint(
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -85,6 +87,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         userModel: UserModel.initial(),
       );
     } else {
+      debugPrint(
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -107,6 +111,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         userModel: networkResponse.data as UserModel,
       );
     } else {
+      debugPrint(
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -117,6 +123,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
   _getUserByDocID(GetUserByDocIdEvent event, emit) async {
     emit(state.copyWith(formStatus: FormStatus.loading));
+
+    debugPrint("\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$${event.docId}");
 
     NetworkResponse networkResponse = await userProfileRepo.getUserByDocId(
       event.docId,
@@ -129,6 +137,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         userModel: networkResponse.data as UserModel,
       );
     } else {
+      debugPrint(
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,

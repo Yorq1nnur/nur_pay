@@ -27,7 +27,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     context.read<UserProfileBloc>().add(
-          GetCurrentUserEvent(
+          GetUserByDocIdEvent(
+            docId: FirebaseAuth.instance.currentUser!.uid,
+          ),
+        );
+    context.read<UserProfileBloc>().add(
+      GetCurrentUserEvent(
             uuid: FirebaseAuth.instance.currentUser!.uid,
           ),
         );
@@ -75,6 +80,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         body: BlocBuilder<UserProfileBloc, UserProfileState>(
           builder: (context, state) {
+            debugPrint(
+                "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$${state.userModel.username}, ${state.userModel.email}");
             return Column(
               children: [
                 Padding(
