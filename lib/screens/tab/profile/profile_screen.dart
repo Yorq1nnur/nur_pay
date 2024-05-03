@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_utils/my_utils.dart';
@@ -23,6 +24,15 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    context.read<UserProfileBloc>().add(
+          GetCurrentUserEvent(
+            uuid: FirebaseAuth.instance.currentUser!.uid,
+          ),
+        );
+    super.initState();
+  }
 
   @override
   Widget build(
