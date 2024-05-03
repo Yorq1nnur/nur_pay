@@ -42,7 +42,20 @@ class DeleteUserEvent extends UserProfileEvent {
       ];
 }
 
-class GetUserEvent extends UserProfileEvent {
+class GetCurrentUserEvent extends UserProfileEvent {
   @override
   List<Object?> get props => [];
+}
+
+class GetUserByDocIdEvent extends UserProfileEvent {
+  GetUserByDocIdEvent({
+    required this.docId,
+  });
+
+  final String docId;
+
+  @override
+  List<Object?> get props => [
+        docId,
+      ];
 }

@@ -49,6 +49,19 @@ class UserModel {
     };
   }
 
+  Map<String, dynamic> toJsonForUpdate() {
+    return {
+      'username': username,
+      'lastname': lastname,
+      'password': password,
+      'imageUrl': imageUrl,
+      'phoneNumber': phoneNumber,
+      'email': email,
+      "fcm_token": fcmToken,
+      "authUUId": authUUId,
+    };
+  }
+
   UserModel copyWith({
     String? username,
     String? lastname,
