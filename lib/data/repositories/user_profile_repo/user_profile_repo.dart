@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nur_pay/data/models/network_response.dart';
 import 'package:nur_pay/data/models/user_model.dart';

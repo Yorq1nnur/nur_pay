@@ -28,6 +28,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   _addUser(AddUserEvent event, emit) async {
+    debugPrint(
+        "\$\$\$\$\$\$\$\$\$\nADD USER TO TABLE GA TUSHDI\n\$\$\$\$\$\$\$\$\$");
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse =
@@ -39,6 +41,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         formStatus: FormStatus.success,
         userModel: event.userModel,
       );
+      debugPrint(
+          "\$\$\$\$\$\$\$\$\$\nADD USER TO TABLE DA XATOLIKKA  TUSHDI: ${networkResponse.errorText}\n\$\$\$\$\$\$\$\$\$");
     } else {
       debugPrint(
           "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
@@ -51,6 +55,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   _updateUser(UpdateUserEvent event, emit) async {
+    debugPrint("\$\$\$\$\$\$\$\$\$\nUPDATE USER TO TABLE GA TUSHDI\n\$\$\$\$\$\$\$\$\$");
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse =
@@ -64,7 +69,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
     } else {
       debugPrint(
-          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ UPDATE USERDA XATOLIKKA TUSHDI: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -74,6 +79,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   _deleteUser(DeleteUserEvent event, emit) async {
+    debugPrint("\$\$\$\$\$\$\$\$\$  DELETE USER FROM TABLE GA TUSHDI\n\$\$\$\$\$\$\$\$\$");
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse = await userProfileRepo.deleteUser(
@@ -88,7 +94,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
     } else {
       debugPrint(
-          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ DELETE USER FROM TABLEDA XATOLIKKA TUSHDI: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -98,6 +104,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   _getUserByUUID(GetCurrentUserEvent event, emit) async {
+    debugPrint("\$\$\$\$\$\$\$\$\$  GET USER BY UUID GA TUSHDI\n\$\$\$\$\$\$\$\$\$");
+
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse = await userProfileRepo.getUserByUUId(
@@ -112,7 +120,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
     } else {
       debugPrint(
-          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ GET USER BY UUIDDA XATOLIKKA TUSHDI: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -122,9 +130,12 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   _getUserByDocID(GetUserByDocIdEvent event, emit) async {
+    debugPrint("\$\$\$\$\$\$\$\$\$  GET USER BY DOC ID GA TUSHDI\n\$\$\$\$\$\$\$\$\$");
+
     emit(state.copyWith(formStatus: FormStatus.loading));
 
-    debugPrint("\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$${event.docId}");
+    debugPrint(
+        "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$${event.docId}");
 
     NetworkResponse networkResponse = await userProfileRepo.getUserByDocId(
       event.docId,
@@ -138,7 +149,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
     } else {
       debugPrint(
-          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$ GET USER BY DOC IDDA XATOLIKKA TUSHDI: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,

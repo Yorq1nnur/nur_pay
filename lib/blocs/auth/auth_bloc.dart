@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nur_pay/blocs/auth/auth_event.dart';
 import 'package:nur_pay/blocs/auth/auth_state.dart';
@@ -107,23 +108,41 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (networkResponse.errorText.isEmpty) {
       UserCredential userCredential = networkResponse.data;
 
+      UserModel userModel = state.userModel.copyWith(
+        username: userCredential.user!.displayName,
+        lastname: userCredential.user!.displayName,
+        password: 'Password',
+        userId: '',
+        imageUrl: userCredential.user!.photoURL,
+        phoneNumber: userCredential.user!.phoneNumber,
+        email: userCredential.user!.email,
+        fcmToken: '',
+        authUUId: userCredential.user!.uid,
+      );
+
       emit(
         state.copyWith(
           formStatus: FormStatus.authenticated,
-          userModel: UserModel(
-            username: userCredential.user!.displayName ?? '',
-            lastname: userCredential.user!.displayName ?? '',
-            password: '',
-            userId: '',
-            imageUrl: userCredential.user!.photoURL ?? '',
-            phoneNumber: userCredential.user!.phoneNumber ?? '',
-            email: userCredential.user!.email ?? '',
-            fcmToken: '',
-            authUUId: userCredential.user!.uid,
-          ),
+          userModel: userModel
+          // userModel: UserModel(
+          //   username: userCredential.user!.displayName ?? "User name",
+          //   lastname: userCredential.user!.displayName ?? "Last name",
+          //   password: 'Password',
+          //   userId: '',
+          //   imageUrl: userCredential.user!.photoURL ?? "Image URL",
+          //   phoneNumber: userCredential.user!.phoneNumber ?? "Phone number",
+          //   email: userCredential.user!.email ?? "Email",
+          //   fcmToken: '',
+          //   authUUId: userCredential.user!.uid,
+          // ),
         ),
       );
+      debugPrint(
+        "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$GOOGLE SIGN IN RETURNED USER MODEL: EMAIL: ${state.userModel.email}, USERNAME: ${state.userModel.username}, LASTNAME: ${state.userModel.lastname}, AUTH ID: ${state.userModel.authUUId},",
+      );
     } else {
+      debugPrint(
+          "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\n\\ERROR: ${networkResponse.errorText}\n\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$");
       emit(
         state.copyWith(
           formStatus: FormStatus.error,
@@ -131,5 +150,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
     }
+    debugPrint(
+        "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\n\\GOOGLE SIGNING STATE: ${state.formStatus}\n\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$"
+    );
   }
 }
