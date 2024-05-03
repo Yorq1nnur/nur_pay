@@ -65,12 +65,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     if (networkResponse.errorText.isEmpty) {
-      // UserCredential userCredential = networkResponse.data;
+      UserCredential userCredential = networkResponse.data as UserCredential;
+      UserModel userModel = event.userModel.copyWith(
+        authUUId: userCredential.user!.uid,
+      );
       emit(
         state.copyWith(
           formStatus: FormStatus.authenticated,
           statusMessage: "registered",
-          userModel: event.userModel,
+          userModel: userModel,
         ),
       );
     } else {

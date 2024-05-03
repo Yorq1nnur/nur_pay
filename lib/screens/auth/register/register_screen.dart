@@ -5,6 +5,8 @@ import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/blocs/auth/auth_bloc.dart';
 import 'package:nur_pay/blocs/auth/auth_event.dart';
 import 'package:nur_pay/blocs/auth/auth_state.dart';
+import 'package:nur_pay/blocs/user_profile/user_profile_bloc.dart';
+import 'package:nur_pay/blocs/user_profile/user_profile_event.dart';
 import 'package:nur_pay/data/models/form_status.dart';
 import 'package:nur_pay/data/models/user_model.dart';
 import 'package:nur_pay/screens/routes.dart';
@@ -300,23 +302,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
+                              UserModel userModel = UserModel(
+                                username: _userNameController.text,
+                                lastname: _userNameController.text,
+                                password: _secondPasswordController.text,
+                                userId: "",
+                                imageUrl: '',
+                                phoneNumber: _secondPasswordController.text,
+                                email: _emailController.text,
+                                fcmToken: '',
+                                authUUId: '',
+                              );
                               context.read<AuthBloc>().add(
                                     RegisterUserEvent(
-                                      userModel: UserModel(
-                                        username: _userNameController.text,
-                                        lastname: _userNameController.text,
-                                        password:
-                                            _secondPasswordController.text,
-                                        userId: "",
-                                        imageUrl: '',
-                                        phoneNumber:
-                                            _secondPasswordController.text,
-                                        email: _emailController.text,
-                                        fcmToken: '',
-                                        authUUId: '',
-                                      ),
+                                      userModel: userModel,
                                     ),
                                   );
+                              BlocProvider.of<UserProfileBloc>(context).add(
+                                AddUserEvent(
+                                  userModel: userModel,
+                                ),
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -413,6 +419,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               context.read<AuthBloc>().add(
                                     SignInWithGoogleUserEvent(),
                                   );
+                              BlocProvider.of<UserProfileBloc>(context).add(
+                                AddUserEvent(
+                                  userModel: state.userModel,
+                                ),
+                              );
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(

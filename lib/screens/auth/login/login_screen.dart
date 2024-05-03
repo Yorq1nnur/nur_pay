@@ -5,6 +5,8 @@ import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/blocs/auth/auth_bloc.dart';
 import 'package:nur_pay/blocs/auth/auth_event.dart';
 import 'package:nur_pay/blocs/auth/auth_state.dart';
+import 'package:nur_pay/blocs/user_profile/user_profile_bloc.dart';
+import 'package:nur_pay/blocs/user_profile/user_profile_event.dart';
 import 'package:nur_pay/data/models/form_status.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
@@ -290,6 +292,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               context.read<AuthBloc>().add(
                                     SignInWithGoogleUserEvent(),
                                   );
+                              BlocProvider.of<UserProfileBloc>(context).add(
+                                AddUserEvent(
+                                  userModel: state.userModel,
+                                ),
+                              );
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(

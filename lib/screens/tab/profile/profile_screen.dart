@@ -23,13 +23,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  void initState() {
-    BlocProvider.of<UserProfileBloc>(context).add(
-      GetCurrentUserEvent(),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(

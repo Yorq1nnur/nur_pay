@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nur_pay/blocs/user_profile/user_profile_event.dart';
 import 'package:nur_pay/blocs/user_profile/user_profile_state.dart';
@@ -39,6 +40,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         userModel: event.userModel,
       );
     } else {
+      debugPrint(
+          "ERRORS: ${networkResponse.errorText} =====================${networkResponse.errorCode}");
       emit(state.copyWith(
         formStatus: FormStatus.error,
         errorMessage: networkResponse.errorText,
@@ -93,7 +96,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   _getUserByUUID(GetCurrentUserEvent event, emit) async {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
-    NetworkResponse networkResponse = await userProfileRepo.getUserByUUId();
+    NetworkResponse networkResponse = await userProfileRepo.getUserByUUId(
+      event.uuid,
+    );
 
     if (networkResponse.errorText.isEmpty &&
         networkResponse.errorCode.isEmpty) {

@@ -135,13 +135,13 @@ class UserProfileRepo {
     }
   }
 
-  Future<NetworkResponse> getUserByUUId() async {
+  Future<NetworkResponse> getUserByUUId(String uuid) async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(
             AppConstants.users,
           )
-          .where("authUUId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where("authUUId", isEqualTo: uuid)
           .get();
 
       List<UserModel> users = querySnapshot.docs
