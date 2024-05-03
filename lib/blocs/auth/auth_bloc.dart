@@ -108,7 +108,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.copyWith(
           formStatus: FormStatus.authenticated,
           userModel: UserModel(
-            username: '',
+            username: userCredential.user!.displayName ?? '',
             lastname: userCredential.user!.displayName ?? '',
             password: '',
             userId: '',
