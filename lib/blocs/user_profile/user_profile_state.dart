@@ -20,13 +20,14 @@ class UserProfileState extends Equatable {
     FormStatus? formStatus,
     String? errorMessage,
     String? statusMessage,
-  }) =>
-      UserProfileState(
-        formStatus: formStatus ?? this.formStatus,
-        userModel: userModel ?? this.userModel,
-        errorMessage: errorMessage ?? this.errorMessage,
-        statusMessage: statusMessage ?? this.statusMessage,
-      );
+  }) {
+    return UserProfileState(
+      formStatus: formStatus ?? this.formStatus,
+      userModel: userModel ?? this.userModel,
+      errorMessage: errorMessage ?? this.errorMessage,
+      statusMessage: statusMessage ?? this.statusMessage,
+    );
+  }
 
   @override
   List<Object?> get props => [

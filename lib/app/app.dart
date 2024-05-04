@@ -43,7 +43,7 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => UserProfileBloc(
-              context.read<UserProfileRepo>(),
+               context.read<UserProfileRepo>(),
             ),
           ),
         ],

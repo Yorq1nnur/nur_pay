@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nur_pay/data/models/network_response.dart';
 import 'package:nur_pay/data/models/user_model.dart';
 import 'package:nur_pay/utils/constants/app_constants.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class UserProfileRepo {
   Future<NetworkResponse> insertUser(UserModel userModel) async {
@@ -26,12 +28,14 @@ class UserProfileRepo {
       }
 
       if (!isExists) {
+        UserModel userModel1 = userModel.copyWith(fcmToken: "HELLO");
+
         DocumentReference documentReference = await FirebaseFirestore.instance
             .collection(
               AppConstants.users,
             )
             .add(
-              userModel.toJson(),
+          userModel1.toJson(),
             );
         await FirebaseFirestore.instance
             .collection(
@@ -43,10 +47,6 @@ class UserProfileRepo {
             .update({
           "userId": documentReference.id,
         });
-      } else {
-        updateUser(
-          userModel,
-        );
       }
 
       return NetworkResponse(
@@ -58,7 +58,7 @@ class UserProfileRepo {
       );
       return NetworkResponse(
         errorCode: error.code,
-        errorText: error.message ?? '',
+        errorText: error.message ?? "NOMA'LUM XATOLIK!!!",
       );
     }
   }
@@ -69,7 +69,7 @@ class UserProfileRepo {
           .collection(
             AppConstants.users,
           )
-          .doc()
+          .doc(userModel.userId)
           .update(
             userModel.toJsonForUpdate(),
           );
@@ -83,19 +83,19 @@ class UserProfileRepo {
       );
       return NetworkResponse(
         errorCode: error.code,
-        errorText: error.message ?? '',
+        errorText: error.message ?? "NOMA'LUM XATOLIK!!!",
       );
     }
   }
 
-  Future<NetworkResponse> deleteUser(String uuid) async {
+  Future<NetworkResponse> deleteUser(String docID) async {
     try {
       await FirebaseFirestore.instance
           .collection(
             AppConstants.users,
           )
           .doc(
-            uuid,
+            docID,
           )
           .delete();
 
@@ -125,7 +125,9 @@ class UserProfileRepo {
           .get();
 
       return NetworkResponse(
-        data: documentSnapshot.data() as Map<String, dynamic>,
+        data: UserModel.fromJson(
+          documentSnapshot.data() as Map<String, dynamic>,
+        ),
       );
     } on FirebaseException catch (error) {
       debugPrint(
@@ -133,26 +135,41 @@ class UserProfileRepo {
       );
       return NetworkResponse(
         errorCode: error.code,
-        errorText: error.message ?? '',
+        errorText: error.message ?? "NOMA'LUM XATOLIK!!!",
       );
     }
   }
 
-  Future<NetworkResponse> getUserByUUId(String uuid) async {
+  Future<NetworkResponse> getUserByUUId() async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection(
-            AppConstants.users,
-          )
-          .where("authUUId", isEqualTo: uuid)
+          .collection(AppConstants.users)
+          .where("authUUId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
 
       List<UserModel> users = querySnapshot.docs
-          .map((e) => UserModel.fromJson(e.data() as Map<String, dynamic>))
+          .map(
+            (e) => UserModel.fromJson(
+              e.data() as Map<String, dynamic>,
+            ),
+          )
           .toList();
 
+methodPrint("\$\$\$\$\$\$THIS IS USERS IS LENGTH: ${users.length}\$\$\$\$\$\$");
+
+
+      methodPrint("CURRENT USER: ${users[0].email}");
+      methodPrint("CURRENT USER: ${users[0].userId}");
+      methodPrint("CURRENT USER: ${users[0].authUUId}");
+      methodPrint("CURRENT USER: ${users[0].phoneNumber}");
+      methodPrint("CURRENT USER: ${users[0].password}");
+      methodPrint("CURRENT USER: ${users[0].username}");
+      methodPrint("CURRENT USER: ${users[0].lastname}");
+      methodPrint("CURRENT USER: ${users[0].fcmToken}");
+      methodPrint("CURRENT USER: ${users[0].imageUrl}");
+
       return NetworkResponse(
-        data: users.isEmpty ? UserModel.initial() : users.first,
+        data: users.isEmpty ? UserModel.initial() : users[0],
       );
     } on FirebaseException catch (error) {
       debugPrint(

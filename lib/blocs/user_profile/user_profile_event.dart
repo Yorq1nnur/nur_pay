@@ -43,16 +43,8 @@ class DeleteUserEvent extends UserProfileEvent {
 }
 
 class GetCurrentUserEvent extends UserProfileEvent {
-  GetCurrentUserEvent({
-    required this.uuid,
-  });
-
-  final String uuid;
-
   @override
-  List<Object?> get props => [
-        uuid,
-      ];
+  List<Object?> get props => [];
 }
 
 class GetUserByDocIdEvent extends UserProfileEvent {

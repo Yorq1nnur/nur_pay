@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
+import 'package:nur_pay/blocs/user_profile/user_profile_bloc.dart';
+import 'package:nur_pay/blocs/user_profile/user_profile_event.dart';
 import 'package:nur_pay/screens/tab/card/card_screen.dart';
 import 'package:nur_pay/screens/tab/history/history_screen.dart';
 import 'package:nur_pay/screens/tab/home/home_screen.dart';
@@ -24,6 +27,14 @@ class _TabScreenState extends State<TabScreen> {
     CardScreen(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    BlocProvider.of<UserProfileBloc>(context).add(
+      GetCurrentUserEvent(),
+    );
+    super.initState();
+  }
 
   int activeIndex = 0;
 

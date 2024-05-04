@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -419,11 +421,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               context.read<AuthBloc>().add(
                                     SignInWithGoogleUserEvent(),
                                   );
-                              BlocProvider.of<UserProfileBloc>(context).add(
-                                AddUserEvent(
-                                  userModel: state.userModel,
-                                ),
-                              );
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -502,7 +499,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             );
           },
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state.formStatus == FormStatus.error) {
               showErrorForRegister(
                 state.errorMessage,
@@ -510,6 +507,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               );
             }
             if (state.formStatus == FormStatus.authenticated) {
+              if (state.statusMessage == "registered") {
+                BlocProvider.of<UserProfileBloc>(context).add(
+                  AddUserEvent(
+                    userModel: state.userModel,
+                  ),
+                );
+              }
+              await Future.delayed(
+                const Duration(
+                  seconds: 1,
+                ),
+              );
+              if (!context.mounted) return;
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 RouteNames.tabRoute,

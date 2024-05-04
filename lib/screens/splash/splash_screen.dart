@@ -75,11 +75,11 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Scaffold(
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
-            BlocProvider.of<UserProfileBloc>(context).add(
-              GetCurrentUserEvent(
-                uuid: FirebaseAuth.instance.currentUser!.uid,
-              ),
-            );
+            if(state.statusMessage == "registered"){
+              BlocProvider.of<UserProfileBloc>(context).add(
+                GetCurrentUserEvent(),
+              );
+            }
           },
           child: Container(
             height: height,
