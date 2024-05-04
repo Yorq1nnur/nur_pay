@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
+import 'package:nur_pay/screens/routes.dart';
+import 'package:nur_pay/services/biometric_auth_servise.dart';
+import '../../../data/local/storage_repository.dart';
 
 class BiometricScreen extends StatefulWidget {
   const BiometricScreen({super.key});
@@ -11,16 +13,55 @@ class BiometricScreen extends StatefulWidget {
 class _BiometricScreenState extends State<BiometricScreen> {
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: systemUiOverlayStyle,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            "Biometric pin screen",
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Touch id"),
+      ),
+      body: Column(
+        children: [
+          const Icon(
+            Icons.fingerprint_outlined,
+            size: 100,
+            color: Colors.blueAccent,
           ),
-        ),
+          TextButton(
+            onPressed: enableBiometrics,
+            child: const Text("Biometrics Auth"),
+          ),
+          TextButton(
+              child: const Text("Skip"),
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, RouteNames.tabRoute, (route) => false);
+              })
+        ],
       ),
     );
+  }
+
+  Future<void> enableBiometrics() async {
+    bool authenticated = await BiometricAuthService.authenticate();
+    if (authenticated) {
+      await StorageRepository.setBool(key: "biometrics_enabled", value: true);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Biometrics Enabled"),
+          ),
+        );
+      }
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Biometrics Error"),
+          ),
+        );
+      }
+    }
+    if (mounted) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, RouteNames.tabRoute, (route) => false);
+    }
   }
 }

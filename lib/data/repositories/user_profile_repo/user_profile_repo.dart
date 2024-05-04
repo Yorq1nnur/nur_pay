@@ -28,13 +28,12 @@ class UserProfileRepo {
       }
 
       if (!isExists) {
-
         DocumentReference documentReference = await FirebaseFirestore.instance
             .collection(
               AppConstants.users,
             )
             .add(
-          userModel.toJson(),
+              userModel.toJson(),
             );
         await FirebaseFirestore.instance
             .collection(
@@ -154,7 +153,8 @@ class UserProfileRepo {
           )
           .toList();
 
-methodPrint("\$\$\$\$\$\$\nTHIS IS USERS IS LENGTH: ${users.length}\n\$\$\$\$\$\$");
+      methodPrint(
+          "\$\$\$\$\$\$\nTHIS IS USERS IS LENGTH: ${users.length}\n\$\$\$\$\$\$");
       return NetworkResponse(
         data: users.isEmpty ? UserModel.initial() : users[0],
       );

@@ -302,7 +302,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               //     ),
                               //   );
                               // }
-
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(

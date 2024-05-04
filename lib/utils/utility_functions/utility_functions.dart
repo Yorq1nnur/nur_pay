@@ -10,7 +10,7 @@ SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
   statusBarIconBrightness: Brightness.dark,
 );
 
-void methodPrint(dynamic data){
+void methodPrint(dynamic data) {
   debugPrint("\$\$\$\$\$\$\n$data\n\$\$\$\$\$\$");
 }
 

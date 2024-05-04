@@ -9,11 +9,11 @@ import '../../data/models/user_model.dart';
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   UserProfileBloc(this.userProfileRepository)
       : super(UserProfileState(
-    userModel: UserModel.initial(),
-    formStatus: FormStatus.pure,
-    errorMessage: "",
-    statusMessage: "",
-  )) {
+          userModel: UserModel.initial(),
+          formStatus: FormStatus.pure,
+          errorMessage: "",
+          statusMessage: "",
+        )) {
     on<AddUserEvent>(_addUser);
     on<UpdateUserEvent>(_updateUser);
     on<DeleteUserEvent>(_deleteUser);
@@ -27,7 +27,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse =
-    await userProfileRepository.insertUser(event.userModel);
+        await userProfileRepository.insertUser(event.userModel);
 
     if (networkResponse.errorText.isEmpty) {
       emit(
@@ -48,7 +48,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse =
-    await userProfileRepository.updateUser(event.userModel);
+        await userProfileRepository.updateUser(event.userModel);
 
     if (networkResponse.errorText.isEmpty) {
       emit(
@@ -69,7 +69,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse =
-    await userProfileRepository.deleteUser(event.userModel.userId);
+        await userProfileRepository.deleteUser(event.userModel.userId);
 
     if (networkResponse.errorText.isEmpty) {
       emit(
@@ -90,7 +90,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse =
-    await userProfileRepository.getUserByDocId(event.docId);
+        await userProfileRepository.getUserByDocId(event.docId);
 
     if (networkResponse.errorText.isEmpty) {
       emit(
@@ -113,7 +113,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     NetworkResponse networkResponse =
-    await userProfileRepository.getUserByUUId();
+        await userProfileRepository.getUserByUUId();
 
     if (networkResponse.errorText.isEmpty) {
       emit(
