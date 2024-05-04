@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/blocs/auth/auth_bloc.dart';
-import 'package:nur_pay/blocs/auth/auth_event.dart';
 import 'package:nur_pay/blocs/auth/auth_state.dart';
 import 'package:nur_pay/blocs/user_profile/user_profile_bloc.dart';
+import 'package:nur_pay/blocs/user_profile/user_profile_event.dart';
 import 'package:nur_pay/blocs/user_profile/user_profile_state.dart';
 import 'package:nur_pay/data/models/form_status.dart';
 import 'package:nur_pay/screens/routes.dart';
@@ -43,12 +43,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
               child: IconButton(
                 onPressed: () {
-                  context.read<AuthBloc>().add(
-                        LogOutUserEvent(),
-                      );
+                  Navigator.pushNamed(context, RouteNames.editProfileRoute,
+                      arguments: () {
+                    BlocProvider.of<UserProfileBloc>(context).add(
+                      GetCurrentUserEvent(),
+                    );
+                  });
                 },
                 icon: Icon(
-                  Icons.logout,
+                  Icons.edit,
                   size: 20.w,
                   color: Colors.black,
                 ),

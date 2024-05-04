@@ -5,6 +5,7 @@ import 'package:nur_pay/screens/no_internet/no_internet_screen.dart';
 import 'package:nur_pay/screens/on_boarding/on_boarding_screen.dart';
 import 'package:nur_pay/screens/payment/payment_screen.dart';
 import 'package:nur_pay/screens/splash/splash_screen.dart';
+import 'package:nur_pay/screens/tab/profile/screens/edit_profile/edit_profile_screen.dart';
 import 'package:nur_pay/screens/tab/tab_screen.dart';
 import 'package:nur_pay/screens/transfer/transfer_screen.dart';
 
@@ -49,6 +50,12 @@ class AppRoutes {
         return navigate(
           const RegisterScreen(),
         );
+      case RouteNames.editProfileRoute:
+        return navigate(
+          EditProfileScreen(
+            voidCallback: settings.arguments as VoidCallback,
+          ),
+        );
 
       default:
         return navigate(
@@ -77,6 +84,7 @@ class AppRoutes {
 
 class RouteNames {
   static const String splashScreen = "/";
+  static const String editProfileRoute = "/edit_profile_route";
   static const String tabRoute = "/tab_route";
   static const String loginRoute = "/login_route";
   static const String registerRoute = "/register_route";
