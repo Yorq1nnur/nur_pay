@@ -60,6 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: FirebaseAuth.instance.currentUser!.email!,
         fcmToken: '',
         authUUId: FirebaseAuth.instance.currentUser!.uid,
+
         ///TODO authUUId yangilanmayabdi!!!
       );
       await userProfileRepo.updateUser(
