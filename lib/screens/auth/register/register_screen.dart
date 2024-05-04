@@ -320,11 +320,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       userModel: userModel,
                                     ),
                                   );
-                              BlocProvider.of<UserProfileBloc>(context).add(
-                                AddUserEvent(
-                                  userModel: userModel,
-                                ),
-                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

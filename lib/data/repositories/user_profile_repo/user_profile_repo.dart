@@ -28,14 +28,13 @@ class UserProfileRepo {
       }
 
       if (!isExists) {
-        UserModel userModel1 = userModel.copyWith(fcmToken: "HELLO");
 
         DocumentReference documentReference = await FirebaseFirestore.instance
             .collection(
               AppConstants.users,
             )
             .add(
-          userModel1.toJson(),
+          userModel.toJson(),
             );
         await FirebaseFirestore.instance
             .collection(
@@ -155,19 +154,7 @@ class UserProfileRepo {
           )
           .toList();
 
-methodPrint("\$\$\$\$\$\$THIS IS USERS IS LENGTH: ${users.length}\$\$\$\$\$\$");
-
-
-      methodPrint("CURRENT USER: ${users[0].email}");
-      methodPrint("CURRENT USER: ${users[0].userId}");
-      methodPrint("CURRENT USER: ${users[0].authUUId}");
-      methodPrint("CURRENT USER: ${users[0].phoneNumber}");
-      methodPrint("CURRENT USER: ${users[0].password}");
-      methodPrint("CURRENT USER: ${users[0].username}");
-      methodPrint("CURRENT USER: ${users[0].lastname}");
-      methodPrint("CURRENT USER: ${users[0].fcmToken}");
-      methodPrint("CURRENT USER: ${users[0].imageUrl}");
-
+methodPrint("\$\$\$\$\$\$\nTHIS IS USERS IS LENGTH: ${users.length}\n\$\$\$\$\$\$");
       return NetworkResponse(
         data: users.isEmpty ? UserModel.initial() : users[0],
       );
