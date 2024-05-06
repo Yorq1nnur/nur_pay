@@ -87,14 +87,16 @@ class UserCardsRepo {
                 .toList(),
           );
 
-  Stream<List<UserCardsModel>> getCardsFromDb() =>
-      FirebaseFirestore.instance.collection(AppConstants.cards).snapshots().map(
-            (event) => event.docs
-                .map(
-                  (e) => UserCardsModel.fromJson(
-                    e.data(),
-                  ),
-                )
-                .toList(),
-          );
+  Stream<List<UserCardsModel>> getCardsFromDb() => FirebaseFirestore.instance
+      .collection(AppConstants.cardsDb)
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+              (e) => UserCardsModel.fromJson(
+                e.data(),
+              ),
+            )
+            .toList(),
+      );
 }

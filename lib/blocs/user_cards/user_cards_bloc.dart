@@ -11,6 +11,7 @@ class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
   UserCardsBlock(this.userCardsRepo)
       : super(
           const UserCardsState(
+            db: [],
             formStatus: FormStatus.pure,
             userCards: [],
             errorMessage: '',
