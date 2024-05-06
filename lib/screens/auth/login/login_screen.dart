@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   );
                             } else {
-                              showSnackBar(
+                              showToast(
                                 color: Colors.red,
                                 context: context,
                                 message:

@@ -1,6 +1,7 @@
 class UserCardsModel {
   final String cardHolder;
   final String cardNumber;
+  final String cardName;
   final String expireDate;
   final String userId;
   final int type;
@@ -25,6 +26,7 @@ class UserCardsModel {
     required this.cardId,
     required this.color,
     required this.isMain,
+    required this.cardName,
   });
 
   factory UserCardsModel.fromJson(Map<String, dynamic> json) => UserCardsModel(
@@ -39,6 +41,7 @@ class UserCardsModel {
         bankName: json['bankName'] as String? ?? '',
         cardId: json['cardId'] as String? ?? '',
         color: json['color'] as String? ?? '',
+    cardName: json['cardName'] as String? ?? '',
         isMain: json['isMain'] as bool? ?? false,
       );
 
@@ -56,6 +59,7 @@ class UserCardsModel {
       'cardId': cardId,
       'color': color,
       'isMain': isMain,
+      'cardName': cardName,
     };
   }
   Map<String, dynamic> toJsonForUpdate() {
@@ -63,6 +67,7 @@ class UserCardsModel {
       'balance': balance,
       'color': color,
       'isMain': isMain,
+      'cardName': cardName,
     };
   }
 
@@ -78,6 +83,7 @@ class UserCardsModel {
     String? bankName,
     String? cardId,
     String? color,
+    String? cardName,
     bool? isMain,
   }) {
     return UserCardsModel(
@@ -93,6 +99,7 @@ class UserCardsModel {
       cardId: cardId ?? this.cardId,
       color: color ?? this.color,
       isMain: isMain ?? this.isMain,
+      cardName: cardName ?? this.cardName,
     );
   }
 
@@ -108,6 +115,7 @@ class UserCardsModel {
         bankName: '',
         cardId: '',
         color: '',
+    cardName: '',
         isMain: false,
       );
 }

@@ -47,7 +47,7 @@ class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(
         formStatus: FormStatus.success,
-        statusMessage: 'success',
+        statusMessage: 'added',
       ));
       methodPrint(
         "ADD USER CARD EVENTDA SUCCESS GA TUSHDI",
@@ -84,7 +84,7 @@ class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
-          statusMessage: 'success',
+          statusMessage: 'updated',
         ),
       );
       methodPrint(
@@ -122,7 +122,7 @@ class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
-          statusMessage: 'success',
+          statusMessage: 'deleted',
         ),
       );
       methodPrint(

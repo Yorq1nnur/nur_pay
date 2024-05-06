@@ -225,19 +225,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   );
                               if (state.formStatus == FormStatus.error) {
-                                showSnackBar(
+                                showToast(
                                   context: context,
                                   message: state.errorMessage,
                                   color: Colors.red,
                                 );
                               } else {
-                                showSnackBar(
+                                showToast(
                                   context: context,
                                   message: "REGISTERED SUCCESSFULLY",
                                 );
                               }
                             } else {
-                              showSnackBar(
+                              showToast(
                                 context: context,
                                 color: Colors.red,
                                 message:
@@ -291,7 +291,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             } else if (state.formStatus == FormStatus.authenticated) {
               if (state.statusMessage == "registered") {
                 if (state.formStatus == FormStatus.error) {
-                  showSnackBar(
+                  showToast(
                     context: context,
                     message: state.errorMessage,
                     color: Colors.red,

@@ -12,11 +12,13 @@ class AppImages {
   static const String card = "assets/icons/card.svg";
   static const String profile = "assets/icons/bottom_profile.svg";
   static const String history = "assets/icons/history.svg";
+  static const String tick = "assets/icons/tick.svg";
 
   //.jpg
   static const String firstOnboard = "assets/images/first_onboard.png";
   static const String secondOnboard = "assets/images/second_onboard.png";
   static const String thirdOnboard = "assets/images/third_onboard.png";
+  static const String cipPng = "assets/images/cip.png";
 
   //.gif
 

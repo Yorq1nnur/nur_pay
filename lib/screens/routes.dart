@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nur_pay/data/models/user_model.dart';
+import 'package:nur_pay/screens/add_new_card/add_new_card_screen.dart';
 import 'package:nur_pay/screens/auth/login/login_screen.dart';
 import 'package:nur_pay/screens/auth/register/register_screen.dart';
 import 'package:nur_pay/screens/local_auth/first_method/confirm_pin_screen.dart';
@@ -74,6 +75,8 @@ class AppRoutes {
         return navigate(const SecurityScreen());
       case RouteNames.touchId:
         return navigate(const BiometricScreen());
+      case RouteNames.addNewCardRoute:
+        return navigate(const AddNewCardScreen());
 
       default:
         return navigate(
@@ -115,4 +118,5 @@ class RouteNames {
   static const String entryPinRoute = "/entryPinRoute_route";
   static const String touchId = "/touchId_route";
   static const String securityRoute = "/security_route";
+  static const String addNewCardRoute = "/add_new_card_route";
 }
