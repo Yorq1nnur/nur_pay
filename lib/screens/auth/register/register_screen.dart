@@ -11,6 +11,7 @@ import 'package:nur_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:nur_pay/blocs/user_profile/user_profile_event.dart';
 import 'package:nur_pay/data/models/form_status.dart';
 import 'package:nur_pay/data/models/user_model.dart';
+import 'package:nur_pay/screens/auth/register/widgets/password_text_field.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
 import 'package:nur_pay/utils/constants/app_constants.dart';
@@ -33,7 +34,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isSecondVisible = true;
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _lastnameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _firstPasswordController =
       TextEditingController();
@@ -45,7 +47,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _lastnameController.dispose();
+    _phoneController.dispose();
     _firstPasswordController.dispose();
     _secondPasswordController.dispose();
     _userNameController.dispose();
@@ -81,15 +84,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      40.getH(),
+                      50.getH(),
                       Text(
+                        textAlign: TextAlign.start,
                         "Create\nan account",
                         style: AppTextStyle.interBold.copyWith(
-                          fontSize: 40.w,
+                          fontSize: 35.w,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      30.getH(),
+                      20.getH(),
                       Form(
                         key: _formKey,
                         child: Column(
@@ -133,25 +137,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
-                            24.getH(),
+                            20.getH(),
                             TextFormField(
-                              keyboardType: TextInputType.emailAddress,
+                              keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _emailController,
+                              controller: _lastnameController,
                               validator: (String? value) {
                                 if (value == null || value.isEmpty) {
-                                  return "WRONG EMAIL!!!";
+                                  return "WRONG LASTNAME!!!";
                                 } else if (!AppConstants.emailRegExp
                                     .hasMatch(value)) {
-                                  return "WRONG EMAIL FORMAT!!!";
+                                  return "WRONG LASTNAME FORMAT!!!";
                                 } else {
                                   return null;
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: "Email",
+                                labelText: "Lastname",
                                 labelStyle: AppTextStyle.interBold.copyWith(
                                   fontSize: 15.w,
                                   fontWeight: FontWeight.w500,
@@ -172,54 +176,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
-                            24.getH(),
+                            20.getH(),
                             TextFormField(
-                              obscureText: isVisible,
-                              onChanged: (v) {
-                                firstPassword = v;
-                              },
-                              keyboardType: TextInputType.visiblePassword,
+                              keyboardType: TextInputType.phone,
                               textInputAction: TextInputAction.next,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _firstPasswordController,
+                              controller: _phoneController,
                               validator: (String? value) {
                                 if (value == null || value.isEmpty) {
-                                  return "WRONG PASSWORD!!!";
-                                } else if (!AppConstants.passwordRegExp
+                                  return "WRONG PHONE NUMBER!!!";
+                                } else if (!AppConstants.phoneRegExp
                                     .hasMatch(value)) {
-                                  return "WRONG PASSWORD FORMAT!!!";
+                                  return "WRONG PHONE NUMBER FORMAT!!!";
                                 } else {
                                   return null;
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: "Password",
+                                labelText: "Phone number",
                                 labelStyle: AppTextStyle.interBold.copyWith(
                                   fontSize: 15.w,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.c676767,
                                 ),
-                                suffixIcon: IconButton(
-                                  icon: SvgPicture.asset(
-                                    isVisible
-                                        ? AppImages.eye
-                                        : AppImages.eyeUnVisible,
-                                    width: 25.w,
-                                    height: 25.h,
-                                    fit: BoxFit.fill,
-                                    colorFilter: const ColorFilter.mode(
-                                      Colors.black,
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    isVisible = !isVisible;
-                                    setState(() {});
-                                  },
-                                ),
                                 prefixIcon: Icon(
-                                  Icons.lock,
+                                  Icons.person,
                                   size: 30.w,
                                 ),
                                 border: OutlineInputBorder(
@@ -233,18 +215,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
-                            24.getH(),
-                            TextFormField(
-                              obscureText: isSecondVisible,
-                              onChanged: (v) {
+                            20.getH(),
+                            PasswordTextField(
+                              isVisible: isVisible,
+                              valueChanged: (v) {
+                                firstPassword = v;
+                              },
+                              textEditingController: _firstPasswordController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "WRONG PHONE NUMBER!!!";
+                                } else if (!AppConstants.phoneRegExp
+                                    .hasMatch(value)) {
+                                  return "WRONG PHONE NUMBER FORMAT!!!";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              voidCallback: () {
+                                isVisible = !isVisible;
+                                setState(() {});
+                              }, title: 'Password',
+                            ),
+                            20.getH(),
+                            PasswordTextField(
+                              isVisible: isSecondVisible,
+                              valueChanged: (v) {
                                 secondPassword = v;
                               },
-                              keyboardType: TextInputType.visiblePassword,
-                              textInputAction: TextInputAction.done,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _secondPasswordController,
-                              validator: (String? value) {
+                              textEditingController: _secondPasswordController,
+                              validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "WRONG PASSWORD!!!";
                                 } else if (firstPassword != secondPassword) {
@@ -253,50 +253,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   return null;
                                 }
                               },
-                              decoration: InputDecoration(
-                                labelText: "Confirm Password",
-                                labelStyle: AppTextStyle.interBold.copyWith(
-                                  fontSize: 15.w,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.c676767,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: SvgPicture.asset(
-                                    isSecondVisible
-                                        ? AppImages.eye
-                                        : AppImages.eyeUnVisible,
-                                    width: 25.w,
-                                    height: 25.h,
-                                    fit: BoxFit.fill,
-                                    colorFilter: const ColorFilter.mode(
-                                      Colors.black,
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    isSecondVisible = !isSecondVisible;
-                                    setState(() {});
-                                  },
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  size: 30.w,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.cA8A8A9,
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
+                              voidCallback: () {
+                                isSecondVisible = !isSecondVisible;
+                                setState(() {});
+                              }, title: 'Confirm password',
                             ),
                           ],
                         ),
                       ),
-                      30.getH(),
+                      20.getH(),
                       Center(
                         child: InkWell(
                           borderRadius: BorderRadius.circular(
@@ -306,12 +271,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (_formKey.currentState!.validate()) {
                               UserModel userModel = UserModel(
                                 username: _userNameController.text,
-                                lastname: _userNameController.text,
+                                lastname: _lastnameController.text,
                                 password: _secondPasswordController.text,
-                                userId: "",
+                                userId: '',
                                 imageUrl: '',
-                                phoneNumber: _secondPasswordController.text,
-                                email: _emailController.text,
+                                phoneNumber: _phoneController.text,
+                                email: _userNameController.text,
                                 fcmToken: '',
                                 authUUId: '',
                               );
@@ -320,19 +285,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       userModel: userModel,
                                     ),
                                   );
+                              if (state.formStatus == FormStatus.error) {
+                                showSnackBar(
+                                  context: context,
+                                  message: state.errorMessage,
+                                  color: Colors.red,
+                                );
+                              } else {
+                                showSnackBar(
+                                  context: context,
+                                  message: "REGISTERED SUCCESSFULLY",
+                                );
+                              }
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.red,
-                                  duration: const Duration(
-                                    seconds: 3,
-                                  ),
-                                  content: Text(
-                                    textAlign: TextAlign.center,
-                                    style: AppTextStyle.interSemiBold,
+                              showSnackBar(
+                                context: context,
+                                color: Colors.red,
+                                message:
                                     "PLEASE ENTER ALL LINES CORRECTLY AND COMPLETELY!!!",
-                                  ),
-                                ),
                               );
                             }
                           },
@@ -370,7 +340,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      30.getH(),
+                      20.getH(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -402,7 +372,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ],
                       ),
-                      30.getH(),
+                      10.getH(),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 20.w,
@@ -451,7 +421,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      20.getH(),
+                      10.getH(),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 35.w,
@@ -500,14 +470,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 state.errorMessage,
                 context,
               );
-            }
-            if (state.formStatus == FormStatus.authenticated) {
+            } else if (state.formStatus == FormStatus.authenticated) {
               if (state.statusMessage == "registered") {
-                BlocProvider.of<UserProfileBloc>(context).add(
-                  AddUserEvent(
-                    userModel: state.userModel,
-                  ),
-                );
+                if (state.formStatus == FormStatus.error) {
+                  showSnackBar(
+                    context: context,
+                    message: state.errorMessage,
+                    color: Colors.red,
+                  );
+                } else if (state.formStatus == FormStatus.authenticated) {
+                  BlocProvider.of<UserProfileBloc>(context).add(
+                    AddUserEvent(
+                      userModel: state.userModel,
+                    ),
+                  );
+                }
               }
               await Future.delayed(
                 const Duration(

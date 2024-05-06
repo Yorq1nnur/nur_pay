@@ -12,7 +12,6 @@ Future<void> main() async {
   );
 
   await StorageRepository.init();
-
   runApp(
     App(),
   );

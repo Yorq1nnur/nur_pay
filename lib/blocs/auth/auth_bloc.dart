@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nur_pay/blocs/auth/auth_event.dart';
 import 'package:nur_pay/blocs/auth/auth_state.dart';
@@ -8,6 +7,7 @@ import 'package:nur_pay/data/models/network_response.dart';
 import 'package:nur_pay/data/models/user_model.dart';
 import 'package:nur_pay/data/repositories/auth_repo/auth_repo.dart';
 import 'package:nur_pay/data/repositories/user_profile_repo/user_profile_repo.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository, required this.userProfileRepo})
@@ -44,12 +44,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     NetworkResponse networkResponse =
         await authRepository.loginInWithEmailAndPassword(
-      email: event.username,
+      email: "${event.username}@gmail.com",
       password: event.password,
     );
 
     if (networkResponse.errorText.isEmpty) {
-      emit(state.copyWith(formStatus: FormStatus.authenticated));
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.authenticated,
+        ),
+      );
       UserModel userModel = UserModel(
         username: event.username,
         lastname: event.username,
@@ -75,7 +79,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   _registerUser(RegisterUserEvent event, emit) async {
-    emit(state.copyWith(formStatus: FormStatus.loading));
+    emit(
+      state.copyWith(
+        formStatus: FormStatus.loading,
+      ),
+    );
 
     NetworkResponse networkResponse =
         await authRepository.registerInWithEmailAndPassword(
@@ -137,34 +145,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         fcmToken: '',
         authUUId: userCredential.user!.uid,
       );
-      debugPrint(
+      methodPrint(
         'CURRENT EMAIL: ${userCredential.user!.email}',
       );
 
-      await userProfileRepo.insertUser(userModel).whenComplete(() {
-        emit(
-          state.copyWith(
-            formStatus: FormStatus.authenticated, userModel: userModel,
-            // userModel: UserModel(
-            //   username: userCredential.user!.displayName ?? "User name",
-            //   lastname: userCredential.user!.displayName ?? "Last name",
-            //   password: 'Password',
-            //   userId: '',
-            //   imageUrl: userCredential.user!.photoURL ?? "Image URL",
-            //   phoneNumber: userCredential.user!.phoneNumber ?? "Phone number",
-            //   email: userCredential.user!.email ?? "Email",
-            //   fcmToken: '',
-            //   authUUId: userCredential.user!.uid,
-            // ),
-          ),
-        );
-      });
+      await userProfileRepo.insertUser(userModel).whenComplete(
+        () {
+          emit(
+            state.copyWith(
+              formStatus: FormStatus.authenticated,
+              userModel: userModel,
+            ),
+          );
+        },
+      );
 
-      debugPrint(
+      methodPrint(
         "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$GOOGLE SIGN IN RETURNED USER MODEL: EMAIL: ${state.userModel.email}, USERNAME: ${state.userModel.username}, LASTNAME: ${state.userModel.lastname}, AUTH ID: ${state.userModel.authUUId},",
       );
     } else {
-      debugPrint(
+      methodPrint(
           "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\n\\ERROR: ${networkResponse.errorText}\n\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$");
       emit(
         state.copyWith(
@@ -173,7 +173,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
     }
-    debugPrint(
+    methodPrint(
         "\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\n\\GOOGLE SIGNING STATE: ${state.formStatus}\n\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$");
   }
 }

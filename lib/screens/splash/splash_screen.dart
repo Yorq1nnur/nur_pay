@@ -45,10 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     } else {
       hasPin
-          ? Navigator.pushReplacementNamed(
-              context,
-              RouteNames.entryPinRoute
-            )
+          ? Navigator.pushReplacementNamed(context, RouteNames.entryPinRoute)
           : Navigator.pushReplacementNamed(
               context,
               RouteNames.setPinRoute,
@@ -58,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-
     _init();
 
     super.initState();

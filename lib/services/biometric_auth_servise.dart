@@ -21,23 +21,21 @@ class BiometricAuthService {
   static Future<bool> authenticate() async {
     try {
       debugPrint("AAA");
-      debugPrint("AAaaa${await auth.authenticate(
-          localizedReason:"Barmoq izini faollashtirish",
-          options: const AuthenticationOptions(
-            useErrorDialogs: false,
-            sensitiveTransaction: false,
-            stickyAuth: true,
-            biometricOnly: true,
-          ))}");
+      debugPrint(
+          "AAaaa${await auth.authenticate(localizedReason: "Barmoq izini faollashtirish", options: const AuthenticationOptions(
+                useErrorDialogs: false,
+                sensitiveTransaction: false,
+                stickyAuth: true,
+                biometricOnly: true,
+              ))}");
       return await auth.authenticate(
-          localizedReason:"Barmoq izini faollashtirish",
+          localizedReason: "Barmoq izini faollashtirish",
           options: const AuthenticationOptions(
             useErrorDialogs: false,
             stickyAuth: true,
             biometricOnly: true,
           ));
-    }
-    catch (e) {
+    } catch (e) {
       return false;
     }
   }

@@ -84,10 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (String? value) {
                                 if (value == null || value.isEmpty) {
-                                  return "WRONG EMAIL!!!";
-                                } else if (!AppConstants.emailRegExp
+                                  return "WRONG USERNAME!!!";
+                                } else if (!AppConstants.textRegExp
                                     .hasMatch(value)) {
-                                  return "WRONG EMAIL FORMAT!!!";
+                                  return "WRONG USERNAME FORMAT!!!";
                                 } else {
                                   return null;
                                 }
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                labelText: "Email",
+                                labelText: "Username",
                                 labelStyle: AppTextStyle.interBold.copyWith(
                                     fontSize: 15.w,
                                     fontWeight: FontWeight.w500,

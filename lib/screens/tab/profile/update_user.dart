@@ -28,7 +28,6 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
     userModel = widget.userModel;
     emailController.text = userModel.email;
     fullNameController.text = "${userModel.username} ${userModel.lastname}";
-
     super.initState();
   }
 
@@ -48,10 +47,14 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
                   ? Container(
                       height: 100.h,
                       width: 100.w,
-                      decoration: const BoxDecoration(shape: BoxShape.circle),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
                       child: CircleAvatar(
                         radius: 60.w,
-                        backgroundImage: NetworkImage(userModel.imageUrl),
+                        backgroundImage: NetworkImage(
+                          userModel.imageUrl,
+                        ),
                         backgroundColor: Colors.transparent,
                       ),
                     )
@@ -59,7 +62,9 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
                       height: 100.h,
                       width: 100.w,
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.grey),
+                        shape: BoxShape.circle,
+                        color: Colors.grey,
+                      ),
                       child: Icon(
                         Icons.person,
                         color: Colors.black,
@@ -90,12 +95,22 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
             ),
             SaveButton(
               onTab: () {
+                userModel = widget.userModel.copyWith(
+                  email: emailController.text.isEmpty
+                      ? widget.userModel.email
+                      : emailController.text,
+                  username: fullNameController.text.isEmpty
+                      ? widget.userModel.username
+                      : fullNameController.text,
+                );
                 context.read<UserProfileBloc>().add(
                       UpdateUserEvent(
                         userModel: userModel,
                       ),
                     );
-                Navigator.pop(context);
+                Navigator.pop(
+                  context,
+                );
               },
               active: checkInput,
               loading: false,

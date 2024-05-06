@@ -64,7 +64,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         statusMessage: networkResponse.errorCode,
         formStatus: FormStatus.error,
       ));
-      methodPrint("${networkResponse.errorCode} AND ${networkResponse.errorText}");
+      methodPrint(
+          "${networkResponse.errorCode} AND ${networkResponse.errorText}");
     }
   }
 

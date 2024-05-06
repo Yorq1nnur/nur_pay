@@ -30,8 +30,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, RouteNames.editProfileRoute,
-                  arguments: context.read<UserProfileBloc>().state.userModel);
+              Navigator.pushNamed(
+                context,
+                RouteNames.editProfileRoute,
+                arguments: context.read<UserProfileBloc>().state.userModel,
+              );
             },
             icon: Icon(
               Icons.edit,
@@ -41,8 +44,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
-                  context, RouteNames.loginRoute, (route) => false);
-              context.read<AuthBloc>().add(LogOutUserEvent());
+                context,
+                RouteNames.loginRoute,
+                (route) => false,
+              );
+              context.read<AuthBloc>().add(
+                    LogOutUserEvent(),
+                  );
             },
             icon: Icon(
               Icons.exit_to_app,
@@ -52,27 +60,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: BlocBuilder<UserProfileBloc, UserProfileState>(
-        builder: (BuildContext context, UserProfileState state) {
-          methodPrint(
-            '============|${state.userModel.username}|============',
-          );
-          methodPrint(
-            '============|${state.userModel.lastname}|============',
-          );
-          methodPrint(
-            '============|${state.userModel.password}|============',
-          );
-          methodPrint(
-            '============|${state.userModel.phoneNumber}|============',
-          );
+        builder: (
+          BuildContext context,
+          UserProfileState state,
+        ) {
           methodPrint(
             '============|${state.userModel.email}|============',
-          );
-          methodPrint(
-            '============|${state.userModel.userId}|============',
-          );
-          methodPrint(
-            '============|${state.userModel.imageUrl}|============',
           );
           return Column(
             children: [

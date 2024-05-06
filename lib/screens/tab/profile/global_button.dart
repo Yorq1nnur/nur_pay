@@ -3,18 +3,21 @@ import 'package:my_utils/my_utils.dart';
 import '../../../utils/colors/app_colors.dart';
 
 class SaveButton extends StatelessWidget {
-  const SaveButton(
-      {super.key,
-      required this.onTab,
-      required this.loading,
-      required this.active});
+  const SaveButton({
+    super.key,
+    required this.onTab,
+    required this.loading,
+    required this.active,
+  });
 
   final VoidCallback onTab;
   final bool loading;
   final bool active;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(

@@ -54,7 +54,7 @@ class UniversalTextInput extends StatelessWidget {
         decoration: InputDecoration(
           hintStyle: TextStyle(fontSize: 16.w, color: Colors.black),
           hintText: hintText,
-          labelText:hintText,
+          labelText: hintText,
           labelStyle: TextStyle(fontSize: 16.w, color: Colors.black),
           contentPadding:
               EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
