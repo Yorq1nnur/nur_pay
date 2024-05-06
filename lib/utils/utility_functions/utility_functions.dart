@@ -11,7 +11,7 @@ SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
 );
 
 void methodPrint(dynamic data) {
-  methodPrint("\$\$\$\$\$\$\n$data\n\$\$\$\$\$\$");
+  debugPrint("\$\$\$\$\$\$\n$data\n\$\$\$\$\$\$");
 }
 
 showSnackBar({
