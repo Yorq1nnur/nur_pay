@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 import 'dart:async';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -55,7 +56,7 @@ class LocalNotificationService {
         //   return UsersScreen();
         // }));
       }
-      debugPrint(
+      methodPrint(
         notification.payload,
       );
     });
@@ -77,7 +78,7 @@ class LocalNotificationService {
   void notificationTapBackground(
     NotificationResponse notificationResponse,
   ) {
-    debugPrint(
+    methodPrint(
       "TAPPED FROM BACKGROUND",
     );
   }
@@ -97,7 +98,7 @@ class LocalNotificationService {
     String? body,
     String? payload,
   ) async {
-    debugPrint(
+    methodPrint(
       payload,
     );
   }
@@ -132,7 +133,7 @@ class LocalNotificationService {
       ),
       payload: "news_screen",
     );
-    debugPrint(
+    methodPrint(
       "CURRENT NOTIFICATION ID:$id",
     );
   }

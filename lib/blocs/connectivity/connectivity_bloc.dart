@@ -1,8 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nur_pay/blocs/connectivity/connectivity_event.dart';
 import 'package:nur_pay/blocs/connectivity/connectivity_state.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   ConnectivityBloc()
@@ -39,10 +39,10 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
       );
     }
 
-    debugPrint(
+    methodPrint(
       "HAS INTERNET INITIAL CHECK:${state.hasInternet}",
     );
-    debugPrint(
+    methodPrint(
       "HAS INTERNET INITIAL STATES:$results",
     );
   }
@@ -75,10 +75,10 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
           ),
         );
       }
-      debugPrint(
+      methodPrint(
         "HAS INTERNET CONTINUES CHECK:${state.hasInternet}",
       );
-      debugPrint(
+      methodPrint(
         "HAS INTERNET CONTINUES STATES:$results",
       );
     });

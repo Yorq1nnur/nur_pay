@@ -4,6 +4,7 @@ import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/screens/local_auth/widgets/global_button.dart';
 import 'package:nur_pay/screens/local_auth/widgets/pin_item.dart';
 import 'package:nur_pay/services/biometric_auth_servise.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 import 'package:pinput/pinput.dart';
 import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/auth/auth_event.dart';
@@ -115,7 +116,7 @@ class _EntryPinScreenState extends State<EntryPinScreen> {
   }
 
   Future<void> checkBio() async {
-    debugPrint("ASDF");
+    methodPrint("CHECK BIO");
     bool authenticated = await BiometricAuthService.authenticate();
     if (authenticated) {
       if (mounted) {

@@ -11,7 +11,7 @@ SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
 );
 
 void methodPrint(dynamic data) {
-  debugPrint("\$\$\$\$\$\$\n$data\n\$\$\$\$\$\$");
+  methodPrint("\$\$\$\$\$\$\n$data\n\$\$\$\$\$\$");
 }
 
 showSnackBar({
@@ -49,7 +49,7 @@ showErrorForRegister(
   BuildContext context,
 ) {
   if (code == 'weak-password') {
-    debugPrint('The password provided is too weak.');
+    methodPrint('The password provided is too weak.');
     if (!context.mounted) return;
     showSnackBar(
       color: Colors.red,
@@ -57,7 +57,7 @@ showErrorForRegister(
       message: "Passwordni xato kiritdingiz!!!",
     );
   } else if (code == 'email-already-in-use') {
-    debugPrint('The account already exists for that email.');
+    methodPrint('The account already exists for that email.');
     if (!context.mounted) return;
     showSnackBar(
       color: Colors.red,
@@ -72,7 +72,7 @@ showErrorForLogin(
   BuildContext context,
 ) {
   if (code == 'wrong-password') {
-    debugPrint('The password provided is wrong.');
+    methodPrint('The password provided is wrong.');
     if (!context.mounted) return;
     showSnackBar(
       color: Colors.red,
@@ -80,7 +80,7 @@ showErrorForLogin(
       message: "Passwordni xato kiritdingiz!!!",
     );
   } else if (code == 'invalid-email') {
-    debugPrint('The e-mail is invalid!!!');
+    methodPrint('The e-mail is invalid!!!');
     if (!context.mounted) return;
     showSnackBar(
       color: Colors.red,
@@ -88,7 +88,7 @@ showErrorForLogin(
       message: "Bu e-pochta yaqroqsiz!!!",
     );
   } else if (code == 'user-disabled') {
-    debugPrint('The user is blocked.');
+    methodPrint('The user is blocked.');
     if (!context.mounted) return;
     showSnackBar(
       color: Colors.red,
@@ -96,7 +96,7 @@ showErrorForLogin(
       message: "Foydalanuvchi bloklangan!!!",
     );
   } else if (code == "user not found") {
-    debugPrint('The user is not found.');
+    methodPrint('The user is not found.');
     if (!context.mounted) return;
     showSnackBar(
       color: Colors.red,
@@ -104,7 +104,7 @@ showErrorForLogin(
       message: "Foydalanuvchi topilmadi!!!",
     );
   } else {
-    debugPrint('The user is not found.');
+    methodPrint('The user is not found.');
     if (!context.mounted) return;
     showSnackBar(
       color: Colors.red,

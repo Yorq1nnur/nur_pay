@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageRepository {
@@ -18,7 +18,7 @@ class StorageRepository {
     required int value,
   }) async {
     if (_preference != null) {
-      debugPrint(
+      methodPrint(
         "SAVING INT:$value",
       );
       _preference!.setInt(
@@ -42,7 +42,7 @@ class StorageRepository {
     required String value,
   }) async {
     if (_preference != null) {
-      debugPrint(
+      methodPrint(
         "SAVING STRING:$value",
       );
       _preference!.setString(
@@ -66,7 +66,7 @@ class StorageRepository {
     required bool value,
   }) async {
     if (_preference != null) {
-      debugPrint(
+      methodPrint(
         "SAVING BOOL:$value",
       );
       _preference!.setBool(
@@ -90,7 +90,7 @@ class StorageRepository {
     required double value,
   }) async {
     if (_preference != null) {
-      debugPrint(
+      methodPrint(
         "SAVING DOUBLE:$value",
       );
       _preference!.setDouble(
@@ -114,7 +114,7 @@ class StorageRepository {
     required List<String> values,
   }) async {
     if (_preference != null) {
-      debugPrint(
+      methodPrint(
         "SAVING LIST:$values",
       );
       _preference!.setStringList(

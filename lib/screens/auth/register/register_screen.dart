@@ -206,7 +206,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
                       ),
-                      20.getH(),
+                      30.getH(),
                       Center(
                         child: RegisterButton(
                           voidCallback: () {
@@ -247,9 +247,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                       ),
-                      20.getH(),
+                      30.getH(),
                       const RegisterMethods(),
-                      10.getH(),
+                      20.getH(),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 20.w,
@@ -264,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      10.getH(),
+                      20.getH(),
                       OtherMethod(
                         voidCallback: () {
                           Navigator.pushReplacementNamed(
@@ -279,7 +279,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             );
           },
-          listener: (context, state) async {
+          listener: (
+            context,
+            state,
+          ) async {
             if (state.formStatus == FormStatus.error) {
               showErrorForRegister(
                 state.errorMessage,

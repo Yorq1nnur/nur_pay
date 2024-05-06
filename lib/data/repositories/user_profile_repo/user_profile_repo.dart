@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:nur_pay/data/models/network_response.dart';
 import 'package:nur_pay/data/models/user_model.dart';
 import 'package:nur_pay/utils/constants/app_constants.dart';
@@ -51,7 +50,7 @@ class UserProfileRepo {
         data: "success",
       );
     } on FirebaseException catch (error) {
-      debugPrint(
+      methodPrint(
         error.message,
       );
       return NetworkResponse(
@@ -76,7 +75,7 @@ class UserProfileRepo {
         data: "success",
       );
     } on FirebaseException catch (error) {
-      debugPrint(
+      methodPrint(
         error.message,
       );
       return NetworkResponse(
@@ -101,7 +100,7 @@ class UserProfileRepo {
         data: "success",
       );
     } on FirebaseException catch (error) {
-      debugPrint(
+      methodPrint(
         error.message,
       );
       return NetworkResponse(
@@ -128,7 +127,7 @@ class UserProfileRepo {
         ),
       );
     } on FirebaseException catch (error) {
-      debugPrint(
+      methodPrint(
         error.message,
       );
       return NetworkResponse(
@@ -159,7 +158,7 @@ class UserProfileRepo {
         data: users.isEmpty ? UserModel.initial() : users[0],
       );
     } on FirebaseException catch (error) {
-      debugPrint(
+      methodPrint(
         error.message,
       );
       return NetworkResponse(

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class BiometricAuthService {
   static LocalAuthentication auth = LocalAuthentication();
@@ -20,8 +20,8 @@ class BiometricAuthService {
 
   static Future<bool> authenticate() async {
     try {
-      debugPrint("AAA");
-      debugPrint(
+      methodPrint("authenticate");
+      methodPrint(
           "AAaaa${await auth.authenticate(localizedReason: "Barmoq izini faollashtirish", options: const AuthenticationOptions(
                 useErrorDialogs: false,
                 sensitiveTransaction: false,

@@ -25,7 +25,7 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (value) {
-        debugPrint(
+        methodPrint(
           "ON POP INVOKED:$value",
         );
       },
