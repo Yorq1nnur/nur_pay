@@ -13,7 +13,10 @@ class PasswordTextField extends StatelessWidget {
     required this.valueChanged,
     required this.textEditingController,
     required this.validator,
-    required this.voidCallback, required this.title,
+    required this.voidCallback,
+    required this.title,
+    required this.textInputType,
+    required this.textInputAction,
   });
 
   final bool isVisible;
@@ -22,14 +25,16 @@ class PasswordTextField extends StatelessWidget {
   final FormFieldValidator validator;
   final VoidCallback voidCallback;
   final String title;
+  final TextInputType textInputType;
+  final TextInputAction textInputAction;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: isVisible,
       onChanged: valueChanged,
-      keyboardType: TextInputType.visiblePassword,
-      textInputAction: TextInputAction.next,
+      keyboardType: textInputType,
+      textInputAction: textInputAction,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: textEditingController,
       validator: validator,
