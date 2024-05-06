@@ -15,6 +15,7 @@ class _BiometricScreenState extends State<BiometricScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -42,6 +43,11 @@ class _BiometricScreenState extends State<BiometricScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Biometrics saved")));
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          RouteNames.tabRoute,
+          (route) => false,
+        );
       }
     } else {
       if (mounted) {

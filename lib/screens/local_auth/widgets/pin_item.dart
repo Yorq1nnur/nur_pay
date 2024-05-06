@@ -3,8 +3,8 @@ import 'package:my_utils/my_utils.dart';
 import 'package:pinput/pinput.dart';
 import '../../../../utils/colors/app_colors.dart';
 
-class PinPutTextView extends StatelessWidget {
-  const PinPutTextView({
+class PinItem extends StatelessWidget {
+  const PinItem({
     super.key,
     required this.pinPutFocusNode,
     required this.pinPutController,
@@ -19,21 +19,19 @@ class PinPutTextView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme=PinTheme(
-        width:42.w,
-        height:42.w,
-        textStyle:TextStyle(
+    final defaultPinTheme = PinTheme(
+        width: 42.w,
+        height: 42.w,
+        textStyle: TextStyle(
             fontSize: 36.w,
-            color: Theme.of(context).textTheme.displayLarge?.color
-        )
-    );
+            color: Theme.of(context).textTheme.displayLarge?.color));
     return SizedBox(
-      width: MediaQuery.of(context).size.width*0.38,
+      width: MediaQuery.of(context).size.width * 0.38,
       child: Pinput(
         useNativeKeyboard: false,
         showCursor: false,
         length: 4,
-        onCompleted:anCompleted,
+        onCompleted: anCompleted,
         defaultPinTheme: defaultPinTheme,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         focusNode: pinPutFocusNode,
@@ -42,24 +40,23 @@ class PinPutTextView extends StatelessWidget {
           width: 42.w,
           height: 42.h,
           textStyle: TextStyle(
-              fontSize: 36.w,color:AppColors.c_2A3256
+            fontSize: 36.w,
+            color: AppColors.c_2A3256,
           ),
         ),
         preFilledWidget: Container(
-          margin:const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey
-          ),
+          margin: const EdgeInsets.all(10),
+          decoration:
+              const BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
         ),
         obscureText: true,
         obscuringWidget: Container(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.all(
+            10.w,
+          ),
           decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isError?
-              Colors.red:Colors.black
-
+            shape: BoxShape.circle,
+            color: isError ? Colors.red : Colors.black,
           ),
         ),
         followingPinTheme: defaultPinTheme,

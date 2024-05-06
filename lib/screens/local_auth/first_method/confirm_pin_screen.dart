@@ -35,6 +35,7 @@ class _ConfirmPinScreenState extends State<ConfirmPinScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,7 +52,7 @@ class _ConfirmPinScreenState extends State<ConfirmPinScreen> {
           ),
           SizedBox(
             width: width / 2,
-            child: PinPutTextView(
+            child: PinItem(
               pinPutFocusNode: focusNode,
               pinPutController: pinController,
               isError: isError,

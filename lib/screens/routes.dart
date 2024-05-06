@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nur_pay/data/models/user_model.dart';
 import 'package:nur_pay/screens/auth/login/login_screen.dart';
 import 'package:nur_pay/screens/auth/register/register_screen.dart';
 import 'package:nur_pay/screens/local_auth/first_method/confirm_pin_screen.dart';
@@ -8,8 +9,9 @@ import 'package:nur_pay/screens/local_auth/second_method/biometric_screen.dart';
 import 'package:nur_pay/screens/no_internet/no_internet_screen.dart';
 import 'package:nur_pay/screens/on_boarding/on_boarding_screen.dart';
 import 'package:nur_pay/screens/payment/payment_screen.dart';
+import 'package:nur_pay/screens/security/security_screen.dart';
 import 'package:nur_pay/screens/splash/splash_screen.dart';
-import 'package:nur_pay/screens/tab/profile/screens/edit_profile/edit_profile_screen.dart';
+import 'package:nur_pay/screens/tab/profile/update_user.dart';
 import 'package:nur_pay/screens/tab/tab_screen.dart';
 import 'package:nur_pay/screens/transfer/transfer_screen.dart';
 
@@ -56,8 +58,8 @@ class AppRoutes {
         );
       case RouteNames.editProfileRoute:
         return navigate(
-          EditProfileScreen(
-            voidCallback: settings.arguments as VoidCallback,
+          UpdateUserScreen(
+            userModel: settings.arguments as UserModel,
           ),
         );
       case RouteNames.setPinRoute:
@@ -68,6 +70,8 @@ class AppRoutes {
         ));
       case RouteNames.entryPinRoute:
         return navigate(const EntryPinScreen());
+      case RouteNames.securityRoute:
+        return navigate(const SecurityScreen());
       case RouteNames.touchId:
         return navigate(const BiometricScreen());
 
@@ -110,4 +114,5 @@ class RouteNames {
   static const String confirmPinRoute = "/confirmPinRoute_route";
   static const String entryPinRoute = "/entryPinRoute_route";
   static const String touchId = "/touchId_route";
+  static const String securityRoute = "/security_route";
 }

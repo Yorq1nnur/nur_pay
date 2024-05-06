@@ -44,7 +44,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
           ),
           SizedBox(
             width: width / 2,
-            child: PinPutTextView(
+            child: PinItem(
               pinPutFocusNode: focusNode,
               pinPutController: pinController,
               isError: isError,
