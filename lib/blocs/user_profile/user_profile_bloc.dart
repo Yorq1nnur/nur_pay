@@ -3,6 +3,7 @@ import 'package:nur_pay/blocs/user_profile/user_profile_event.dart';
 import 'package:nur_pay/blocs/user_profile/user_profile_state.dart';
 import 'package:nur_pay/data/models/network_response.dart';
 import 'package:nur_pay/data/repositories/user_profile_repo/user_profile_repo.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 import '../../data/models/form_status.dart';
 import '../../data/models/user_model.dart';
 
@@ -57,11 +58,13 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           userModel: event.userModel,
         ),
       );
+      methodPrint("UPDATE SUCCESSFULLY");
     } else {
       emit(state.copyWith(
         statusMessage: networkResponse.errorCode,
         formStatus: FormStatus.error,
       ));
+      methodPrint("${networkResponse.errorCode} AND ${networkResponse.errorText}");
     }
   }
 
