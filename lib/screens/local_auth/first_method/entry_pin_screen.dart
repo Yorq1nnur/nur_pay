@@ -1,103 +1,105 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_utils/my_utils.dart';
-import 'package:nur_pay/blocs/auth/auth_bloc.dart';
-import 'package:nur_pay/blocs/auth/auth_event.dart';
-import 'package:nur_pay/blocs/auth/auth_state.dart';
-import 'package:nur_pay/data/models/form_status.dart';
-import 'package:nur_pay/screens/local_auth/widgets/pin_put_items.dart';
-import 'package:nur_pay/screens/local_auth/widgets/custom_keyboard.dart';
+import 'package:nur_pay/screens/local_auth/widgets/global_button.dart';
+import 'package:nur_pay/screens/local_auth/widgets/pin_item.dart';
 import 'package:nur_pay/services/biometric_auth_servise.dart';
-import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
-import 'package:nur_pay/utils/styles/app_text_style.dart';
 import 'package:pinput/pinput.dart';
-import '../../../data/local/storage_repository.dart';
+import '../../../blocs/auth/auth_bloc.dart';
+import '../../../blocs/auth/auth_event.dart';
+import '../../../blocs/auth/auth_state.dart';
+import '../../../data/local/storage_repo.dart';
+import '../../../data/models/form_status.dart';
+import '../../../utils/colors/app_colors.dart';
 import '../../routes.dart';
 
 class EntryPinScreen extends StatefulWidget {
-  const EntryPinScreen({
-    super.key,
-  });
+  const EntryPinScreen({super.key});
 
   @override
   State<EntryPinScreen> createState() => _EntryPinScreenState();
 }
 
 class _EntryPinScreenState extends State<EntryPinScreen> {
-  final TextEditingController pinPutController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   bool isError = false;
-  bool biometricsEnabled = false;
-  int attemptCount = 0;
-  String currentPin = "";
+  String currentPin = '';
+  bool biometrics = false;
+  int count = 0;
 
   @override
   void initState() {
-    biometricsEnabled = StorageRepository.getBool(key: "biometrics_enabled");
-    currentPin = StorageRepository.getString(key: "pin_code");
+    biometrics = StorageRepository.getBool(key: 'biometrics');
+    currentPin = StorageRepository.getString(key: 'pin');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Entry pin"),
-      ),
+      appBar: AppBar(),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          60.getH(),
-          Text(
-            "Pin kod kiriting!",
-            style: AppTextStyle.interMedium.copyWith(fontSize: 20),
+          SizedBox(
+            height: 50.h,
           ),
-          32.getH(),
+          Text(
+            "Pin kodni kiriting",
+            style: TextStyle(color: AppColors.black, fontSize: 18.w),
+          ),
+          SizedBox(
+            height: 30.h,
+          ),
           SizedBox(
             width: width / 2,
-            child: PinPutItems(
-                pinPutFocusMode: focusNode,
-                pinPutController: pinPutController,
-                isError: isError),
+            child: PinPutTextView(
+              pinPutFocusNode: focusNode,
+              pinPutController: pinController,
+              isError: isError,
+            ),
           ),
-          32.getH(),
+          SizedBox(
+            height: 10.h,
+          ),
           Text(
-            isError ? "Pin kod noto'g'ri!" : "",
-            style: AppTextStyle.interMedium
-                .copyWith(fontSize: 20, color: Colors.red),
+            (!isError) ? "" : "Pin kod noto'g'ri!",
+            style: TextStyle(color: AppColors.black, fontSize: 18.w),
           ),
-          if (height > 700) 32.getH(),
-          CustomKeyboard(
-            onFingerPrintTap: checkBiometrics,
-            number: (number) {
-              if (pinPutController.length < 4) {
-                pinPutController.text = "${pinPutController.text}$number";
-              }
-              if (pinPutController.length == 4) {
-                if (currentPin == pinPutController.text) {
-                  Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
-                } else {
-                  attemptCount++;
-                  if (attemptCount == 3) {
-                    context.read<AuthBloc>().add(LogOutUserEvent());
-                  }
-                  isError = true;
-                  pinPutController.clear();
+          SizedBox(
+            height: 20.h,
+          ),
+          CustomKeyboardView(
+              number: (number) {
+                if (pinController.length < 4) {
+                  isError = false;
+                  pinController.text += number;
                 }
-                pinPutController.text = "";
-              }
-              setState(() {});
-            },
-            isBiometricsEnabled: biometricsEnabled,
-            onClearButtonTap: () {
-              if (pinPutController.length > 0) {
-                pinPutController.text = pinPutController.text
-                    .substring(0, pinPutController.text.length - 1);
-              }
-            },
-          ),
+                if (pinController.length == 4) {
+                  if (currentPin == pinController.text) {
+                    Navigator.pushReplacementNamed(
+                        context, RouteNames.tabRoute);
+                  } else {
+                    count += 1;
+                    if (count == 3) {
+                      context.read<AuthBloc>().add(LogOutUserEvent());
+                    }
+                    isError = true;
+                    pinController.clear();
+                  }
+                }
+                setState(() {});
+              },
+              isBiometric: biometrics,
+              onClearButton: () {
+                if (pinController.length > 0) {
+                  pinController.text = pinController.text
+                      .substring(0, pinController.text.length - 1);
+                }
+              },
+              onFingerButton: checkBio),
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state.formStatus == FormStatus.unauthenticated) {
@@ -112,11 +114,15 @@ class _EntryPinScreenState extends State<EntryPinScreen> {
     );
   }
 
-  Future<void> checkBiometrics() async {
+  Future<void> checkBio() async {
+    debugPrint("ASDF");
     bool authenticated = await BiometricAuthService.authenticate();
     if (authenticated) {
       if (mounted) {
-        Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
+        Navigator.pushReplacementNamed(
+          context,
+          RouteNames.tabRoute,
+        );
       }
     }
   }

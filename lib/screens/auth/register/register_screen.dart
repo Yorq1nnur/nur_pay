@@ -517,7 +517,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               if (!context.mounted) return;
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                RouteNames.tabRoute,
+                RouteNames.setPinRoute,
                 (route) => false,
               );
             }

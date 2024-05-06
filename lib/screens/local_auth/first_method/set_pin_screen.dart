@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_utils/my_utils.dart';
-import 'package:nur_pay/screens/local_auth/widgets/pin_put_items.dart';
-import 'package:nur_pay/screens/local_auth/widgets/custom_keyboard.dart';
-import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
-import 'package:nur_pay/utils/styles/app_text_style.dart';
+import 'package:nur_pay/screens/local_auth/widgets/global_button.dart';
+import 'package:nur_pay/screens/local_auth/widgets/pin_item.dart';
 import 'package:pinput/pinput.dart';
-
+import '../../../utils/colors/app_colors.dart';
 import '../../routes.dart';
 
 class SetPinScreen extends StatefulWidget {
@@ -16,50 +14,64 @@ class SetPinScreen extends StatefulWidget {
 }
 
 class _SetPinScreenState extends State<SetPinScreen> {
-  final TextEditingController pinPutController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   bool isError = false;
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Entry pin"),
-      ),
+      appBar: AppBar(),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          60.getH(),
-          Text(
-            "Pin kodni O'rnating!",
-            style: AppTextStyle.interMedium.copyWith(fontSize: 20),
+          SizedBox(
+            height: 50.h,
           ),
-          32.getH(),
+          Text(
+            "Pin Kodni o'rnating",
+            style: TextStyle(
+              color: AppColors.black,
+              fontSize: 18.w,
+            ),
+          ),
+          SizedBox(
+            height: 30.h,
+          ),
           SizedBox(
             width: width / 2,
-            child: PinPutItems(
-                pinPutFocusMode: focusNode,
-                pinPutController: pinPutController,
-                isError: isError),
+            child: PinPutTextView(
+              pinPutFocusNode: focusNode,
+              pinPutController: pinController,
+              isError: isError,
+            ),
           ),
-          32.getH(),
-          CustomKeyboard(
+          SizedBox(
+            height: 40.h,
+          ),
+          CustomKeyboardView(
             number: (number) {
-              if (pinPutController.length < 4) {
-                pinPutController.text = "${pinPutController.text}$number";
+              if (pinController.length < 4) {
+                pinController.text += number;
               }
-              if (pinPutController.length == 4) {
+              if (pinController.length == 4) {
                 Navigator.pushNamed(context, RouteNames.confirmPinRoute,
-                    arguments: pinPutController.text);
-                pinPutController.text = "";
+                    arguments: pinController.text);
+                pinController.text = '';
               }
             },
-            isBiometricsEnabled: false,
-            onClearButtonTap: () {
-              if (pinPutController.length > 0) {
-                pinPutController.text = pinPutController.text
-                    .substring(0, pinPutController.text.length - 1);
+            isBiometric: true,
+            onClearButton: () {
+              if (pinController.length > 0) {
+                pinController.text = pinController.text
+                    .substring(0, pinController.text.length - 1);
               }
             },
+            onFingerButton: () {},
           )
         ],
       ),

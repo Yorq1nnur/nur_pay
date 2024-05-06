@@ -293,15 +293,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               debugPrint(
                                 "CURRENT AUTH STATE: ${state.formStatus}",
                               );
-                              // if (state.userModel.email.isEmpty) {
-                              //   showSnackBar(context: context, message: 'message');
-                              // } else {
-                              //   BlocProvider.of<UserProfileBloc>(context).add(
-                              //     AddUserEvent(
-                              //       userModel: state.userModel,
-                              //     ),
-                              //   );
-                              // }
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -399,7 +390,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (!context.mounted) return;
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                RouteNames.tabRoute,
+                RouteNames.setPinRoute,
                 (route) => false,
               );
             }

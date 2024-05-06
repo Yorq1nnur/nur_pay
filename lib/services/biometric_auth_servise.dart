@@ -1,43 +1,43 @@
-import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
-import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 
 class BiometricAuthService {
   static LocalAuthentication auth = LocalAuthentication();
 
-  static Future<bool> canAuthenticate() async {
-    final bool canAuthenticateBiometrics = await auth.canCheckBiometrics;
-
+  static Future<bool> canAuthenticated() async {
+    final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
     final bool canAuthenticate =
-        canAuthenticateBiometrics || await auth.isDeviceSupported();
+        canAuthenticateWithBiometrics || await auth.isDeviceSupported();
 
     if (canAuthenticate) {
       List<BiometricType> types = await auth.getAvailableBiometrics();
-      if (types.isNotEmpty) return true;
+      if (types.isNotEmpty) {
+        return true;
+      }
     }
-
     return false;
   }
 
   static Future<bool> authenticate() async {
     try {
+      debugPrint("AAA");
+      debugPrint("AAaaa${await auth.authenticate(
+          localizedReason:"Barmoq izini faollashtirish",
+          options: const AuthenticationOptions(
+            useErrorDialogs: false,
+            sensitiveTransaction: false,
+            stickyAuth: true,
+            biometricOnly: true,
+          ))}");
       return await auth.authenticate(
-          localizedReason: "Barmoq izini faollashtiring",
+          localizedReason:"Barmoq izini faollashtirish",
           options: const AuthenticationOptions(
             useErrorDialogs: false,
             stickyAuth: true,
             biometricOnly: true,
           ));
-    } on PlatformException catch (e) {
-      methodPrint("Biometrics Error:${e.code}");
-      if (e.code == auth_error.notAvailable) {
-        methodPrint("BIOMETRIC AUTH NOT SUPPORTED");
-      } else if (e.code == auth_error.notEnrolled) {
-        methodPrint("BIOMETRIC AUTH NOT SUPPORTED USE");
-      } else {
-        methodPrint("SOMETHING WRONG");
-      }
+    }
+    catch (e) {
       return false;
     }
   }
