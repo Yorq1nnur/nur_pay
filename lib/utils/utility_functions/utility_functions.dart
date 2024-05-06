@@ -10,6 +10,10 @@ SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
   statusBarIconBrightness: Brightness.dark,
 );
 
+void methodPrint(dynamic data) {
+  debugPrint("\$\$\$\$\$\$\n$data\n\$\$\$\$\$\$");
+}
+
 showSnackBar({
   required BuildContext context,
   required String message,

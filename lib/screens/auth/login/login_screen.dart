@@ -286,10 +286,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(
                               50,
                             ),
-                            onTap: () {
+                            onTap: () async {
                               context.read<AuthBloc>().add(
                                     SignInWithGoogleUserEvent(),
                                   );
+                              debugPrint(
+                                "CURRENT AUTH STATE: ${state.formStatus}",
+                              );
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -368,7 +371,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           },
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state.formStatus == FormStatus.error) {
               debugPrint(
                 "THIS IS LOGIN ERROR: ${state.errorMessage}",
@@ -379,9 +382,15 @@ class _LoginScreenState extends State<LoginScreen> {
               );
             }
             if (state.formStatus == FormStatus.authenticated) {
+              await Future.delayed(
+                const Duration(
+                  seconds: 2,
+                ),
+              );
+              if (!context.mounted) return;
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                RouteNames.tabRoute,
+                RouteNames.setPinRoute,
                 (route) => false,
               );
             }
