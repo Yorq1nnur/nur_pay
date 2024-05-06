@@ -1,6 +1,7 @@
 class AppConstants {
   static String placeHolder = "";
   static String users = "users";
+  static String cards = "cards";
 
   static RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 

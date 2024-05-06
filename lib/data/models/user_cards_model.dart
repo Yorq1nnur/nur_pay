@@ -58,6 +58,13 @@ class UserCardsModel {
       'isMain': isMain,
     };
   }
+  Map<String, dynamic> toJsonForUpdate() {
+    return {
+      'balance': balance,
+      'color': color,
+      'isMain': isMain,
+    };
+  }
 
   UserCardsModel copyWith({
     String? cardHolder,
