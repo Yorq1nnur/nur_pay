@@ -378,6 +378,7 @@ class _LoginScreenState extends State<LoginScreen> {
               );
               showErrorForLogin(
                 state.errorMessage,
+
                 context,
               );
             }
