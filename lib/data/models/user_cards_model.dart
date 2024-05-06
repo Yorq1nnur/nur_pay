@@ -41,7 +41,7 @@ class UserCardsModel {
         bankName: json['bankName'] as String? ?? '',
         cardId: json['cardId'] as String? ?? '',
         color: json['color'] as String? ?? '',
-    cardName: json['cardName'] as String? ?? '',
+        cardName: json['cardName'] as String? ?? '',
         isMain: json['isMain'] as bool? ?? false,
       );
 
@@ -62,6 +62,7 @@ class UserCardsModel {
       'cardName': cardName,
     };
   }
+
   Map<String, dynamic> toJsonForUpdate() {
     return {
       'balance': balance,
@@ -115,7 +116,7 @@ class UserCardsModel {
         bankName: '',
         cardId: '',
         color: '',
-    cardName: '',
+        cardName: '',
         isMain: false,
       );
 }

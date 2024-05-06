@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
-
 import '../../utils/colors/app_colors.dart';
 import '../../utils/images/app_images.dart';
 import '../../utils/styles/app_text_style.dart';
@@ -16,6 +15,7 @@ class CardContainer extends StatelessWidget {
     required this.colors,
     required this.amount,
     required this.voidCallback,
+    required this.onLongPress,
   });
 
   final String cardType;
@@ -25,11 +25,13 @@ class CardContainer extends StatelessWidget {
   final String amount;
   final List<Color> colors;
   final VoidCallback voidCallback;
+  final VoidCallback onLongPress;
 
   @override
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
-      onLongTap: voidCallback,
+      onTap: voidCallback,
+      onLongTap: onLongPress,
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.symmetric(

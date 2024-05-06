@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_bloc.dart';
+import 'package:nur_pay/blocs/user_cards/user_cards_event.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_state.dart';
 import 'package:nur_pay/screens/global_widgets/card_container.dart';
 import 'package:nur_pay/screens/routes.dart';
@@ -20,12 +22,24 @@ class CardScreen extends StatefulWidget {
 
 class _CardScreenState extends State<CardScreen> {
   @override
+  void initState() {
+    Future.microtask(
+      () => context.read<UserCardsBlock>().add(
+            GetUserCardEvent(
+              userId: FirebaseAuth.instance.currentUser!.uid,
+            ),
+          ),
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(
     BuildContext context,
   ) {
     return AnnotatedRegion(
       value: systemUiOverlayStyle,
-      child: BlocBuilder<UserCardsBlock, UserCardsState>(
+      child: BlocConsumer<UserCardsBlock, UserCardsState>(
         builder: (context, state) {
           methodPrint(
             "CURRENT USER CARDS LENGTH: ${state.userCards.length}",
@@ -79,14 +93,33 @@ class _CardScreenState extends State<CardScreen> {
                   cardNumber: state.userCards[index].cardNumber,
                   cardHolderName: state.userCards[index].cardHolder,
                   expireDate: state.userCards[index].expireDate,
-                  colors:
-                      gradientColors[int.parse(state.userCards[index].color)],
+                  colors: gradientColors[int.parse(
+                    state.userCards[index].color,
+                  )],
                   amount: state.userCards[index].balance.toString(),
                   voidCallback: () {},
+                  onLongPress: () {
+                    context.read<UserCardsBlock>().add(
+                          DeleteUserCardEvent(
+                            userCard: state.userCards[index],
+                          ),
+                        );
+                  },
                 ),
               ),
             ),
           );
+        },
+        listener: (BuildContext context, UserCardsState state) {
+          if (state.statusMessage == 'deleted') {
+            showToast(
+              context: context,
+              message: "DELETED SUCCESSFULLY",
+            );
+            context.read<UserCardsBlock>().add(
+                  GetAllUserCardsEvent(),
+                );
+          }
         },
       ),
     );
