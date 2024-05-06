@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nur_pay/blocs/auth/auth_bloc.dart';
+import 'package:nur_pay/blocs/user_cards/user_cards_bloc.dart';
 import 'package:nur_pay/blocs/user_profile/user_profile_bloc.dart';
+import 'package:nur_pay/data/repositories/user_cards_repo/user_cards_repo.dart';
 import 'package:nur_pay/data/repositories/user_profile_repo/user_profile_repo.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/services/local_notification_service.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
-
 import '../data/repositories/auth_repo/auth_repo.dart';
 
 class App extends StatelessWidget {
@@ -32,6 +33,9 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (_) => UserProfileRepo(),
         ),
+        RepositoryProvider(
+          create: (_) => UserCardsRepo(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -44,6 +48,11 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => UserProfileBloc(
               context.read<UserProfileRepo>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => UserCardsBlock(
+              context.read<UserCardsRepo>(),
             ),
           ),
         ],

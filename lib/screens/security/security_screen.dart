@@ -52,13 +52,13 @@ class _SecurityScreenState extends State<SecurityScreen> {
                       value: true,
                     );
                     if (!context.mounted) return;
-                    showSnackBar(
+                    showToast(
                       context: context,
                       message: "Boimetrics saved",
                     );
                   } else {
                     if (!context.mounted) return;
-                    showSnackBar(
+                    showToast(
                       context: context,
                       message: "Boimetrics Error",
                       color: Colors.red,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/services/biometric_auth_servise.dart';
+import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 import '../../../data/local/storage_repo.dart';
 import '../../routes.dart';
 
@@ -41,8 +42,10 @@ class _BiometricScreenState extends State<BiometricScreen> {
     if (authenticated) {
       await StorageRepository.setBool(key: 'biometrics', value: true);
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Biometrics saved")));
+        showToast(
+          context: context,
+          message: "BIOMETRICS SAVED",
+        );
         Navigator.pushNamedAndRemoveUntil(
           context,
           RouteNames.tabRoute,
@@ -51,8 +54,10 @@ class _BiometricScreenState extends State<BiometricScreen> {
       }
     } else {
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Biometrics Error")));
+        showToast(
+          context: context,
+          message: "BIOMETRICS ERROR!!!",
+        );
       }
     }
   }
