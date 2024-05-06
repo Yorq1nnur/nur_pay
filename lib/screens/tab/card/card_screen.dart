@@ -104,23 +104,24 @@ class _CardScreenState extends State<CardScreen> {
                             userCard: state.userCards[index],
                           ),
                         );
+                    if (state.statusMessage == 'deleted') {
+                      showToast(
+                        context: context,
+                        message: "DELETED SUCCESSFULLY",
+                      );
+                      context.read<UserCardsBlock>().add(
+                            GetUserCardEvent(
+                              userId: FirebaseAuth.instance.currentUser!.uid,
+                            ),
+                          );
+                    }
                   },
                 ),
               ),
             ),
           );
         },
-        listener: (BuildContext context, UserCardsState state) {
-          if (state.statusMessage == 'deleted') {
-            showToast(
-              context: context,
-              message: "DELETED SUCCESSFULLY",
-            );
-            context.read<UserCardsBlock>().add(
-                  GetAllUserCardsEvent(),
-                );
-          }
-        },
+        listener: (BuildContext context, UserCardsState state) {},
       ),
     );
   }

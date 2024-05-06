@@ -85,11 +85,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(statusBarColor: AppColors.transparent),
       child: BlocConsumer<UserCardsBlock, UserCardsState>(
-        listener: (context, state) {
-          if (state.statusMessage == "added") {
-            Navigator.pop(context);
-          }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -415,7 +411,9 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                             UserCardsModel userCardsModel = UserCardsModel(
                               cardHolder: values[0],
                               cardNumber: values[3],
-                              expireDate: values[5],
+                              expireDate: formatDateWithSlash(
+                                values[5],
+                              ),
                               userId: FirebaseAuth.instance.currentUser!.uid,
                               type: activeTypeIndex,
                               cvc: 'cvc',
@@ -434,20 +432,24 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                                     userCard: userCardsModel,
                                   ),
                                 );
+
+                            if (state.statusMessage == "added") {
+                              Navigator.pop(context);
+                            } else {
+                              showToast(
+                                context: context,
+                                message: "THIS CARD ALREADY EXISTS!!!",
+                                color: Colors.red,
+                              );
+                            }
                           } else {
                             showToast(
                               context: context,
-                              message: "THIS CARD ALREADY EXISTS!!!",
-                              color: Colors.red,
+                              message:
+                                  "ILTIMOS, BARCHA MA'LUMOTLARNI TO'G'RI KIRITING!!!",
+                              color: Colors.yellow,
                             );
                           }
-                        } else {
-                          showToast(
-                            context: context,
-                            message:
-                                "ILTIMOS, BARCHA MA'LUMOTLARNI TO'G'RI KIRITING!!!",
-                            color: Colors.yellow,
-                          );
                         }
                       },
                       child: Center(

@@ -257,3 +257,21 @@ List<List<Color>> gradientColors = [
     const Color(0xFF00A3FF),
   ],
 ];
+
+String formatDateWithSlash(String input) {
+  if (input.length != 4) {
+    methodPrint('Input string must be exactly 4 characters long.');
+  }
+
+  DateTime now = DateTime.now();
+  int currentYear = now.year;
+  int currentMonth = now.month;
+
+  int year = int.parse(input.substring(0, 2));
+  int month = int.parse(input.substring(2, 4));
+
+  if (year > currentYear || (year == currentYear && month > currentMonth)) {
+    methodPrint('Input date cannot be in the past.');
+  }
+  return '$year/$month';
+}
