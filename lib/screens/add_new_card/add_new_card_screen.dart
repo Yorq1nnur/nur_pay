@@ -74,6 +74,9 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
       amountInputType,
       expireDateInputType,
     ];
+    methodPrint(
+      FirebaseAuth.instance.currentUser!.displayName,
+    );
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -101,7 +104,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
           }
         },
         buildWhen: (prev, current) =>
-        current.formStatus != FormStatus.showMessage ||
+            current.formStatus != FormStatus.showMessage ||
             current.formStatus != FormStatus.error,
         builder: (context, state) {
           return Scaffold(
@@ -443,6 +446,12 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                                   userCard: userCardsModel,
                                 ),
                               );
+                        } else {
+                          showToast(
+                            context: context,
+                            message: "THIS CARD ALREADY EXISTS",
+                            color: Colors.red,
+                          );
                         }
                       },
                       child: Center(
