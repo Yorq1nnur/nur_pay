@@ -66,6 +66,11 @@ class _CardScreenState extends State<CardScreen> {
                       Navigator.pushNamed(
                         context,
                         RouteNames.addNewCardRoute,
+                        arguments: () {
+                          state.copyWith(
+                            formStatus: FormStatus.pure,
+                          );
+                        },
                       );
                     },
                     borderRadius: BorderRadius.circular(
@@ -138,6 +143,9 @@ class _CardScreenState extends State<CardScreen> {
                     userId: FirebaseAuth.instance.currentUser!.uid,
                   ),
                 );
+            state.copyWith(
+              statusMessage: '',
+            );
           } else if (state.formStatus == FormStatus.error) {
             showToast(
               context: context,

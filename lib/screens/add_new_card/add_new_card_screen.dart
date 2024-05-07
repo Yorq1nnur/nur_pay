@@ -18,7 +18,10 @@ import '../../utils/styles/app_text_style.dart';
 class AddNewCardScreen extends StatefulWidget {
   const AddNewCardScreen({
     super.key,
+    required this.onPop,
   });
+
+  final VoidCallback onPop;
 
   @override
   State<AddNewCardScreen> createState() => _AddNewCardScreenState();
@@ -88,56 +91,58 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
   Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(statusBarColor: AppColors.transparent),
-      child: BlocConsumer<UserCardsBlock, UserCardsState>(
-        listenWhen: (prev, current) =>
-            current.formStatus == FormStatus.showMessage ||
-            current.formStatus == FormStatus.error,
-        listener: (context, state) {
-          if (state.formStatus == FormStatus.showMessage) {
-            Navigator.pop(context);
-          } else if (state.formStatus == FormStatus.error) {
-            showToast(
-              context: context,
-              message: "THIS CARD ALREADY EXISTS!!!",
-              color: Colors.red,
-            );
-          }
-        },
-        buildWhen: (prev, current) =>
-            current.formStatus != FormStatus.showMessage ||
-            current.formStatus != FormStatus.error,
-        builder: (context, state) {
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              leading: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  ZoomTapAnimation(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColors.black,
-                      size: 20.w,
-                    ),
-                  ),
-                ],
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 20.w,
               ),
-              centerTitle: true,
-              title: Text(
-                'ADD NEW CARD',
-                style: AppTextStyle.interBold.copyWith(
+              ZoomTapAnimation(
+                onTap: () {
+                  Navigator.pop(context);
+                  widget.onPop.call();
+                },
+                child: Icon(
+                  Icons.arrow_back_ios,
                   color: AppColors.black,
+                  size: 20.w,
                 ),
               ),
+            ],
+          ),
+          centerTitle: true,
+          title: Text(
+            'ADD NEW CARD',
+            style: AppTextStyle.interBold.copyWith(
+              color: AppColors.black,
             ),
-            body: Column(
+          ),
+        ),
+        body: BlocConsumer<UserCardsBlock, UserCardsState>(
+          listenWhen: (prev, current) =>
+              current.formStatus == FormStatus.showMessage ||
+              current.formStatus == FormStatus.error,
+          listener: (context, state) {
+            if (state.formStatus == FormStatus.showMessage) {
+              Navigator.pop(context);
+              state.copyWith(
+                formStatus: FormStatus.pure,
+              );
+              widget.onPop.call();
+            } else if (state.formStatus == FormStatus.error) {
+              showToast(
+                context: context,
+                message: "THIS CARD ALREADY EXISTS!!!",
+                color: Colors.red,
+              );
+            }
+          },
+          builder: (context, state) {
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -467,203 +472,10 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                   height: 10.h,
                 ),
               ],
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 }
-
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:my_utils/my_utils.dart';
-// import 'package:nur_pay/blocs/user_cards/user_cards_bloc.dart';
-// import 'package:nur_pay/blocs/user_cards/user_cards_event.dart';
-// import 'package:nur_pay/blocs/user_cards/user_cards_state.dart';
-// import 'package:nur_pay/data/models/form_status.dart';
-// import 'package:nur_pay/data/models/user_cards_model.dart';
-// import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
-// import 'package:nur_pay/utils/styles/app_text_style.dart';
-// import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
-//
-// class AddNewCardScreen extends StatefulWidget {
-//   const AddNewCardScreen({super.key});
-//
-//   @override
-//   State<AddNewCardScreen> createState() => _AddNewCardScreenState();
-// }
-//
-// class _AddNewCardScreenState extends State<AddNewCardScreen> {
-//   final TextEditingController cardNumberCr = TextEditingController();
-//
-//   @override
-//   void dispose() {
-//     cardNumberCr.dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   void initState() {
-//     Future.microtask(
-//       () => context.read<UserCardsBlock>().add(
-//             GetUserCardEvent(
-//               userId: FirebaseAuth.instance.currentUser!.uid,
-//             ),
-//           ),
-//     );
-//     super.initState();
-//   }
-//
-//   @override
-//   Widget build(
-//     BuildContext context,
-//   ) {
-//     return AnnotatedRegion(
-//       value: systemUiOverlayStyle,
-//       child: BlocConsumer<UserCardsBlock, UserCardsState>(
-//         listener: (context, state) {
-//           if (state.statusMessage == "added") {
-//             Navigator.pop(context);
-//           }
-//         },
-//         builder: (context, state) {
-//           return Scaffold(
-//             appBar: AppBar(
-//               actions: [
-//                 Ink(
-//                   height: 30.w,
-//                   width: 30.w,
-//                   decoration: BoxDecoration(
-//                     color: Colors.blue,
-//                     borderRadius: BorderRadius.circular(
-//                       50,
-//                     ),
-//                   ),
-//                   child: InkWell(
-//                     borderRadius: BorderRadius.circular(
-//                       50,
-//                     ),
-//                     onTap: () {
-//                       methodPrint(
-//                         "CURRENT USER ID: ${FirebaseAuth.instance.currentUser!.uid}",
-//                       );
-//                       methodPrint(
-//                         "CURRENT USER CARDS LENGTH: ${state.userCards.length}",
-//                       );
-//                       context.read<UserCardsBlock>().add(
-//                             GetUserCardEvent(
-//                               userId: FirebaseAuth.instance.currentUser!.uid,
-//                             ),
-//                           );
-//
-//                       bool isExists = false;
-//                       for (var element in state.userCards) {
-//                         if (element.cardNumber == "cardNumber") {
-//                           isExists = true;
-//                           break;
-//                         }
-//                       }
-//                       if (!isExists) {
-//                         UserCardsModel userCardsModel = UserCardsModel(
-//                           cardHolder: 'cardHolder',
-//                           cardNumber: 'cardNumber',
-//                           expireDate: 'expireDate',
-//                           userId: FirebaseAuth.instance.currentUser!.uid,
-//                           type: 1,
-//                           cvc: 'cvc',
-//                           icon: 'icon',
-//                           balance: 2500000,
-//                           bankName: 'bankName',
-//                           cardId: 'cardId',
-//                           color: 'color',
-//                           isMain: true,
-//                         );
-//                         context.read<UserCardsBlock>().add(
-//                               AddUserCardEvent(
-//                                 userCard: userCardsModel,
-//                               ),
-//                             );
-//                       } else {
-//                         showToast(
-//                           context: context,
-//                           message: "THIS CARD ALREADY EXISTS!!!",
-//                           color: Colors.red,
-//                         );
-//                       }
-//                     },
-//                     child: Center(
-//                       child: Icon(
-//                         Icons.save,
-//                         color: Colors.black,
-//                         size: 20.w,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 10.getW(),
-//               ],
-//               leading: IconButton(
-//                 onPressed: () {
-//                   Navigator.pop(context);
-//                 },
-//                 icon: Icon(
-//                   Icons.arrow_back_ios,
-//                   color: Colors.black,
-//                   size: 20.w,
-//                 ),
-//               ),
-//               centerTitle: true,
-//               elevation: 0,
-//               title: Text(
-//                 "Add new card",
-//                 style: AppTextStyle.interMedium,
-//               ),
-//             ),
-//             body: Padding(
-//               padding: EdgeInsets.symmetric(
-//                 horizontal: 20.w,
-//                 vertical: 20.h,
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   TextField(
-//                     decoration: InputDecoration(
-//                       hintText: 'CardNumber',
-//                       border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(
-//                           24,
-//                         ),
-//                         borderSide: BorderSide(
-//                           color: Colors.black,
-//                           width: 2.w,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   24.getH(),
-//                   TextField(
-//                     decoration: InputDecoration(
-//                       hintText: 'Expire date',
-//                       border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(
-//                           24,
-//                         ),
-//                         borderSide: BorderSide(
-//                           color: Colors.black,
-//                           width: 2.w,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }

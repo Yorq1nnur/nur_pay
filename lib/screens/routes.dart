@@ -76,7 +76,11 @@ class AppRoutes {
       case RouteNames.touchId:
         return navigate(const BiometricScreen());
       case RouteNames.addNewCardRoute:
-        return navigate(const AddNewCardScreen());
+        return navigate(
+          AddNewCardScreen(
+            onPop: settings.arguments as VoidCallback,
+          ),
+        );
 
       default:
         return navigate(
