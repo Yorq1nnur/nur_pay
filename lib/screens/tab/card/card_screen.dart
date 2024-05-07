@@ -5,7 +5,9 @@ import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_bloc.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_event.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_state.dart';
+import 'package:nur_pay/data/models/form_status.dart';
 import 'package:nur_pay/screens/global_widgets/card_container.dart';
+import 'package:nur_pay/screens/global_widgets/show_simple_dialog.dart';
 import 'package:nur_pay/screens/routes.dart';
 import 'package:nur_pay/utils/colors/app_colors.dart';
 import 'package:nur_pay/utils/sizedbox/get_sizedbox.dart';
@@ -40,6 +42,7 @@ class _CardScreenState extends State<CardScreen> {
     return AnnotatedRegion(
       value: systemUiOverlayStyle,
       child: BlocConsumer<UserCardsBlock, UserCardsState>(
+        listenWhen: (p, c) => p.formStatus != c.formStatus,
         builder: (context, state) {
           methodPrint(
             "CURRENT USER CARDS LENGTH: ${state.userCards.length}",
@@ -99,29 +102,49 @@ class _CardScreenState extends State<CardScreen> {
                   amount: state.userCards[index].balance.toString(),
                   voidCallback: () {},
                   onLongPress: () {
-                    context.read<UserCardsBlock>().add(
-                          DeleteUserCardEvent(
-                            userCard: state.userCards[index],
-                          ),
-                        );
-                    if (state.statusMessage == 'deleted') {
-                      showToast(
+                    showDialog(
                         context: context,
-                        message: "DELETED SUCCESSFULLY",
-                      );
-                      context.read<UserCardsBlock>().add(
-                            GetUserCardEvent(
-                              userId: FirebaseAuth.instance.currentUser!.uid,
-                            ),
+                        builder: (context) {
+                          return ShowSimpleDialog(
+                            onSubmit: () {
+                              context.read<UserCardsBlock>().add(
+                                    DeleteUserCardEvent(
+                                      userCard: state.userCards[index],
+                                    ),
+                                  );
+                              Navigator.pop(context);
+                            },
+                            onCancel: () {
+                              Navigator.pop(context);
+                            },
+                            title: "WARNING!!!",
+                            subTitle: "CONFIRM TO DELETE!?",
                           );
-                    }
+                        });
                   },
                 ),
               ),
             ),
           );
         },
-        listener: (BuildContext context, UserCardsState state) {},
+        listener: (BuildContext context, UserCardsState state) {
+          if (state.statusMessage == 'deleted') {
+            showToast(
+              context: context,
+              message: "DELETED SUCCESSFULLY",
+            );
+            context.read<UserCardsBlock>().add(
+                  GetUserCardEvent(
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                  ),
+                );
+          } else if (state.formStatus == FormStatus.error) {
+            showToast(
+              context: context,
+              message: "Noma'lum xatolik",
+            );
+          }
+        },
       ),
     );
   }

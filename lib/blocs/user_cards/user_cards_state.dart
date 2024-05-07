@@ -3,18 +3,18 @@ import 'package:nur_pay/data/models/form_status.dart';
 import 'package:nur_pay/data/models/user_cards_model.dart';
 
 class UserCardsState extends Equatable {
+  final FormStatus formStatus;
   final List<UserCardsModel> userCards;
   final List<UserCardsModel> db;
-  final FormStatus formStatus;
-  final String errorMessage;
-  final String statusMessage;
+  final String? errorMessage;
+  final String? statusMessage;
 
   const UserCardsState({
     required this.formStatus,
-    required this.userCards,
-    required this.errorMessage,
-    required this.statusMessage,
-    required this.db,
+    this.userCards = const [],
+    this.errorMessage,
+    this.statusMessage,
+    this.db = const [],
   });
 
   UserCardsState copyWith({
@@ -35,6 +35,7 @@ class UserCardsState extends Equatable {
 
   @override
   List<Object?> get props => [
+        db,
         userCards,
         formStatus,
         errorMessage,

@@ -9,15 +9,7 @@ import '../../data/models/user_cards_model.dart';
 
 class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
   UserCardsBlock(this.userCardsRepo)
-      : super(
-          const UserCardsState(
-            db: [],
-            formStatus: FormStatus.pure,
-            userCards: [],
-            errorMessage: '',
-            statusMessage: '',
-          ),
-        ) {
+      : super(const UserCardsState(formStatus: FormStatus.pure)) {
     on<AddUserCardEvent>(_addUserCard);
     on<UpdateUserCardEvent>(_updateUserCard);
     on<DeleteUserCardEvent>(_deleteUserCard);
@@ -46,7 +38,7 @@ class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
 
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(
-        formStatus: FormStatus.success,
+        formStatus: FormStatus.showMessage,
         statusMessage: 'added',
       ));
       methodPrint(
@@ -83,7 +75,7 @@ class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
     if (networkResponse.errorText.isEmpty) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormStatus.showMessage,
           statusMessage: 'updated',
         ),
       );
@@ -121,7 +113,7 @@ class UserCardsBlock extends Bloc<UserCardsEvent, UserCardsState> {
     if (networkResponse.errorText.isEmpty) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormStatus.showMessage,
           statusMessage: 'deleted',
         ),
       );

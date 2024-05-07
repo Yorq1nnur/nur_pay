@@ -7,6 +7,7 @@ import 'package:my_utils/my_utils.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_bloc.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_event.dart';
 import 'package:nur_pay/blocs/user_cards/user_cards_state.dart';
+import 'package:nur_pay/data/models/form_status.dart';
 import 'package:nur_pay/data/models/user_cards_model.dart';
 import 'package:nur_pay/utils/utility_functions/utility_functions.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -85,7 +86,23 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(statusBarColor: AppColors.transparent),
       child: BlocConsumer<UserCardsBlock, UserCardsState>(
-        listener: (context, state) {},
+        listenWhen: (prev, current) =>
+            current.formStatus == FormStatus.showMessage ||
+            current.formStatus == FormStatus.error,
+        listener: (context, state) {
+          if (state.formStatus == FormStatus.showMessage) {
+            Navigator.pop(context);
+          } else if (state.formStatus == FormStatus.error) {
+            showToast(
+              context: context,
+              message: "THIS CARD ALREADY EXISTS!!!",
+              color: Colors.red,
+            );
+          }
+        },
+        buildWhen: (prev, current) =>
+        current.formStatus != FormStatus.showMessage ||
+            current.formStatus != FormStatus.error,
         builder: (context, state) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -382,74 +399,50 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                         16,
                       ),
                       onTap: () {
-                        if (_formKey.currentState!.validate() &&
-                            cardType != '' &&
-                            activeColorIndex != -1 &&
-                            activeTypeIndex != -1 &&
-                            cardType != '') {
-                          methodPrint(
-                            "CURRENT USER ID: ${FirebaseAuth.instance.currentUser!.uid}",
-                          );
-                          methodPrint(
-                            "CURRENT USER CARDS LENGTH: ${state.userCards.length}",
+                        methodPrint(
+                          "CURRENT USER ID: ${FirebaseAuth.instance.currentUser!.uid}",
+                        );
+                        methodPrint(
+                          "CURRENT USER CARDS LENGTH: ${state.userCards.length}",
+                        );
+                        context.read<UserCardsBlock>().add(
+                              GetUserCardEvent(
+                                userId: FirebaseAuth.instance.currentUser!.uid,
+                              ),
+                            );
+
+                        bool isExists = false;
+                        for (var element in state.userCards) {
+                          if (element.cardNumber == values[3]) {
+                            isExists = true;
+                            break;
+                          }
+                        }
+                        if (!isExists) {
+                          UserCardsModel userCardsModel = UserCardsModel(
+                            cardHolder: values[0],
+                            cardNumber: values[3],
+                            expireDate: formatDateWithSlash(
+                              values[5],
+                            ),
+                            userId: FirebaseAuth.instance.currentUser!.uid,
+                            type: activeTypeIndex,
+                            cvc: 'cvc',
+                            icon: 'icon',
+                            balance: double.parse(
+                              values[4],
+                            ),
+                            bankName: values[1],
+                            cardId: '',
+                            color: activeColorIndex.toString(),
+                            isMain: isMain,
+                            cardName: values[2],
                           );
                           context.read<UserCardsBlock>().add(
-                                GetUserCardEvent(
-                                  userId:
-                                      FirebaseAuth.instance.currentUser!.uid,
+                                AddUserCardEvent(
+                                  userCard: userCardsModel,
                                 ),
                               );
-
-                          bool isExists = false;
-                          for (var element in state.userCards) {
-                            if (element.cardNumber == values[3]) {
-                              isExists = true;
-                              break;
-                            }
-                          }
-                          if (!isExists) {
-                            UserCardsModel userCardsModel = UserCardsModel(
-                              cardHolder: values[0],
-                              cardNumber: values[3],
-                              expireDate: formatDateWithSlash(
-                                values[5],
-                              ),
-                              userId: FirebaseAuth.instance.currentUser!.uid,
-                              type: activeTypeIndex,
-                              cvc: 'cvc',
-                              icon: 'icon',
-                              balance: double.parse(
-                                values[4],
-                              ),
-                              bankName: values[1],
-                              cardId: '',
-                              color: activeColorIndex.toString(),
-                              isMain: isMain,
-                              cardName: values[2],
-                            );
-                            context.read<UserCardsBlock>().add(
-                                  AddUserCardEvent(
-                                    userCard: userCardsModel,
-                                  ),
-                                );
-
-                            if (state.statusMessage == "added") {
-                              Navigator.pop(context);
-                            } else {
-                              showToast(
-                                context: context,
-                                message: "THIS CARD ALREADY EXISTS!!!",
-                                color: Colors.red,
-                              );
-                            }
-                          } else {
-                            showToast(
-                              context: context,
-                              message:
-                                  "ILTIMOS, BARCHA MA'LUMOTLARNI TO'G'RI KIRITING!!!",
-                              color: Colors.yellow,
-                            );
-                          }
                         }
                       },
                       child: Center(
